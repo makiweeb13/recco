@@ -1,4 +1,3 @@
-import React from 'react';
 import HeaderMode from './HeaderMode';
 import Footer from '../Footer';
 import { Outlet } from 'react-router-dom'

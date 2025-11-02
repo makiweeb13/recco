@@ -91,6 +91,7 @@ main {
     background-color: #111;
     color: #fff;
     padding: 20px;
+    min-height: 100vh;
 }
 
 .posts {

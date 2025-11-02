@@ -1,13 +1,14 @@
-import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useFormik } from 'formik';
 import { userSchema } from '../schemas/login-schema';
 import Cookies from 'js-cookie';
+import { useState } from 'react';
 
 function Login() {
     const navigate = useNavigate();
+    const [ errorMessage, setErrorMessage ] = useState('');
 
     const onSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
@@ -27,9 +28,11 @@ function Login() {
                 navigate('/');
             } else {
                 console.error('Login failed', data.message);
+                setErrorMessage(data.message);
             }
         } catch(err) {
             console.error('Login request failed:', err)
+            setErrorMessage('An error occurred. Please try again.');
         }
     }
 
@@ -67,8 +70,9 @@ function Login() {
                 <br />
                 { errors.email && touched.email && <p className='error-message'>{errors.email}</p> }
                 { errors.password && touched.password && <p className='error-message'>{errors.password}</p> }
+                { errorMessage && <p className='error-message'>{errorMessage}</p> }
                 <button type="submit">Login</button>
-                <p>Don't have an account yet? <Link to="/signup" className="link">Create Account</Link></p>
+                <p>Dont have an account yet? <Link to="/signup" className="link">Create Account</Link></p>
             </form>
         </div>
     )

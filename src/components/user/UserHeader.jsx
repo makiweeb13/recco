@@ -35,9 +35,9 @@ function UserHeader() {
                 <Link to="/">
                     <FontAwesomeIcon icon={faHouse} className="menu-icon" />
                 </Link>
-                {/* <Link>
+                <Link>
                     <FontAwesomeIcon icon={faBell} className="menu-icon" />
-                </Link> */}
+                </Link>
                 <Link to="/create-post">
                     <button className="create-post-btn">
                         <p><FontAwesomeIcon icon={faPlus}/> <span className="show-btn-label">Create</span></p>

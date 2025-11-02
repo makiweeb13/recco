@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
 import Posts from './Posts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,7 +23,7 @@ function Profile() {
                 setPosts(json.posts)
                 setIsLoading(false);
             })
-            .catch(err => {
+            .catch(() => {
                 throw new Response('User Not Found', { status: 404 })
             })
     }, [id])
