@@ -2,6 +2,8 @@
 
 Recco is a social media platform designed for users to share and recommend their favorite shows across a variety of mediums and genres. The platform enables users to discover new content, connect with others who share similar interests, and engage in meaningful discussions about their favorite entertainment.
 
+## Screenshots
+
 ## Features
 
 ### User Authentication & Profile Management
@@ -11,6 +13,19 @@ Recco is a social media platform designed for users to share and recommend their
 - Profile editing capabilities
 - Protected routes for authenticated users
 
+<table>
+  <tr>
+    <td><img src="./screenshots/login.png" alt="Homepage" width="400"/></td>
+    <td><img src="./screenshots/register.png" alt="User Dashboard" width="400"/></td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td><img src="./screenshots/profile.png" alt="Homepage" width="400"/></td>
+    <td><img src="./screenshots/edit-profile.png" alt="User Dashboard" width="400"/></td>
+  </tr>
+</table>
+
 ### Content Management
 - Create and share detailed show recommendations
 - Include show titles, synopses, and personal reviews
@@ -18,17 +33,40 @@ Recco is a social media platform designed for users to share and recommend their
 - Update or delete your own posts
 - Rich text content support for reviews
 
+<table>
+  <tr>
+    <td><img src="./screenshots/add-post.png" alt="Homepage" width="400"/></td>
+    <td><img src="./screenshots/edit-post.png" alt="User Dashboard" width="400"/></td>
+  </tr>
+</table>
+
 ### Social Interaction
 - Comment on posts
+- Reply on comments
+- React like or dislike on comments and posts
 - Update and delete your own comments
 - View other users' profiles
 - Interactive user interface with real-time feedback
+
+<table>
+  <tr>
+    <td><img src="./screenshots/post.png" alt="Homepage" width="400"/></td>
+    <td><img src="./screenshots/comments.png" alt="User Dashboard" width="400"/></td>
+  </tr>
+</table>
 
 ### Search & Discovery
 - Search functionality to find specific shows or reviews
 - Browse all posts in a clean, organized feed
 - Filter and sort content options
 - Mobile-responsive design for all devices
+
+<table>
+  <tr>
+    <td><img src="./screenshots/dashboard.png" alt="Homepage" width="400"/></td>
+    <td><img src="./screenshots/filtered.png" alt="User Dashboard" width="400"/></td>
+  </tr>
+</table>
 
 ### User Interface
 - Dark theme for comfortable viewing

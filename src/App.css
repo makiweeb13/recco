@@ -91,7 +91,7 @@ main {
     background-color: #111;
     color: #fff;
     padding: 20px;
-    min-height: 100vh;
+    min-height: 78vh;
 }
 
 .posts {
@@ -182,7 +182,7 @@ main {
 .page {
     margin: 0;
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #fff;

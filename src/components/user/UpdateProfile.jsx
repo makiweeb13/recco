@@ -30,7 +30,7 @@ function UpdateProfile() {
         }
     }
 
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } = useFormik({
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
         initialValues: {
             username: user.username,
             email: user.email,
