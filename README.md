@@ -2,8 +2,6 @@
 
 Recco is a social media platform designed for users to share and recommend their favorite shows across a variety of mediums and genres. The platform enables users to discover new content, connect with others who share similar interests, and engage in meaningful discussions about their favorite entertainment.
 
-## Screenshots
-
 ## Features
 
 ### User Authentication & Profile Management
