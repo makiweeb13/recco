@@ -26,7 +26,7 @@ function Profile() {
             .catch(() => {
                 throw new Response('User Not Found', { status: 404 })
             })
-    }, [id])
+    }, [id, setPosts])
     
     if (!isLoading) {
         return (
