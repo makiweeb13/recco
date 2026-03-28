@@ -18,7 +18,7 @@ function Comment({ comment, preview, setComment }) {
 
     const handleCommentLikes = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/comments/action?comment=${comment.id}&mode=like`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/action?comment=${comment.id}&mode=like`, {
                 method: 'POST',
                 credentials: 'include'
             })
@@ -37,7 +37,7 @@ function Comment({ comment, preview, setComment }) {
 
     const handleCommentDislikes = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/comments/action?comment=${comment.id}&mode=dislike`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/action?comment=${comment.id}&mode=dislike`, {
                 method: 'POST',
                 credentials: 'include'
             })
@@ -62,7 +62,7 @@ function Comment({ comment, preview, setComment }) {
         }
         
         try {
-            const response = await fetch(`http://localhost:5000/comments/${comment.id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/${comment.id}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'

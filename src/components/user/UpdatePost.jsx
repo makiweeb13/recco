@@ -15,7 +15,7 @@ function UpdatePost({ post }) {
         try {
             values.rate = parseInt(values.rate);
             values.status = JSON.parse(values.status)
-            const response = await fetch(`http://localhost:5000/posts/${post.id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',

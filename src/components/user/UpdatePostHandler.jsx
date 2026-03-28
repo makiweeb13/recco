@@ -8,7 +8,7 @@ function UpdatePostHandler() {
     const [ isLoading, setIsLoading ] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/posts/${id}`)
+        fetch(`${import.meta.env.VITE_API_URL}/posts/${id}`)
             .then(response => response.json())
             .then(json => {
                 setCurrentPost(json);

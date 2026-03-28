@@ -8,7 +8,7 @@ function Signup() {
     const navigate = useNavigate();
 
     const onSubmit = (values, { setSubmitting, resetForm }) => {
-        fetch('http://localhost:5000/users/signup', {
+        fetch(`${import.meta.env.VITE_API_URL}/users/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(values)

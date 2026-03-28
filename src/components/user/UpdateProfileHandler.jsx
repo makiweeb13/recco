@@ -9,7 +9,7 @@ function UpdateProfileHandler() {
     const [ isLoading, setIsLoading ] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users/${id}`)
+        fetch(`${import.meta.env.VITE_API_URL}/users/${id}`)
             .then(response => response.json())
             .then(json => {
                 setUser(json);
