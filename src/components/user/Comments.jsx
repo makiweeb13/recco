@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import Comment from "./Comment";
 
 function Comments({ comments }) {
@@ -9,5 +9,9 @@ function Comments({ comments }) {
 
     return <div className="comments">{renderComments()}</div>
 }
+
+Comments.propTypes = {
+    comments: PropTypes.array.isRequired,
+};
 
 export default Comments;

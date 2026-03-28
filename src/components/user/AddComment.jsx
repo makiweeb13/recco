@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import useStore from '../../store/store';
 
 function AddComment({ postId, parentId }) {
@@ -49,5 +50,10 @@ function AddComment({ postId, parentId }) {
         </div>
     )
 }
+
+AddComment.propTypes = {
+    postId: PropTypes.number.isRequired,
+    parentId: PropTypes.number
+};
 
 export default AddComment;

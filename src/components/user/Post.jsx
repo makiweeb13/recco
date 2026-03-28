@@ -7,6 +7,7 @@ import Comments from './Comments';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function Post({ post, detailedMode, setPost }) {
 
@@ -141,5 +142,11 @@ function Post({ post, detailedMode, setPost }) {
         </>
     )
 }
+
+Post.propTypes = {
+    post: PropTypes.object.isRequired,
+    detailedMode: PropTypes.bool,
+    setPost: PropTypes.func.isRequired
+};
 
 export default Post;

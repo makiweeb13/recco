@@ -21,10 +21,10 @@ function PostDetails() {
                 setComments(json.comments)
                 setIsLoading(false);
             })
-            .catch(err => {
+            .catch(() => {
                 throw Error('Post Not Found')
             })
-    }, [id])
+    }, [id, setComments])
 
     if (!isLoading) {
         return (

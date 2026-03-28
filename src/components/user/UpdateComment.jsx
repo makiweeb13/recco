@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import useStore from '../../store/store';
 
 function UpdateComment({ commentId, content }) {
@@ -42,5 +43,10 @@ function UpdateComment({ commentId, content }) {
         </div>
     )
 }
+
+UpdateComment.propTypes = {
+    commentId: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+};
 
 export default UpdateComment;

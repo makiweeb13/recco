@@ -14,7 +14,7 @@ function UpdatePostHandler() {
                 setCurrentPost(json);
                 setIsLoading(false);
             })
-            .catch(err => {
+            .catch(() => {
                 throw Error('Post Not Found')
             })
     }, [id])

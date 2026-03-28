@@ -15,10 +15,10 @@ function UpdateProfileHandler() {
                 setUser(json);
                 setIsLoading(false);
             })
-            .catch(err => {
+            .catch(() => {
                 throw Error('User Not Found')
             })
-    }, [id])
+    }, [id, setUser])
 
     if (!isLoading) {
        return  <UpdateProfile />

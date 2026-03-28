@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import useStore from '../../store/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown, faReply, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -127,5 +128,11 @@ function Comment({ comment, preview, setComment }) {
         
     )
 }
+
+Comment.propTypes = {
+    comment: PropTypes.object.isRequired,
+    preview: PropTypes.bool,
+    setComment: PropTypes.func.isRequired
+};
 
 export default Comment;

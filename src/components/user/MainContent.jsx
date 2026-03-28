@@ -17,7 +17,7 @@ function MainContent() {
             })
             .catch((error) => console.error('Error fetching posts:', error));
         }
-    }, [page, search])
+    }, [page, search, setPosts, setTotalPages])
 
     if (!isLoading) {
         return (

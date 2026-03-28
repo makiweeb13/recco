@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Footer() {
     return (
         <footer>
@@ -7,7 +5,7 @@ function Footer() {
                 <p>Dev: Maria Mae Kiskis</p>
                 <p>22105083@usc.edu.ph</p>
             </div>
-            <p>&copy; 2024. All rights reserved.</p>
+            <p>&copy; 2026. All rights reserved.</p>
         </footer>
     )
 }

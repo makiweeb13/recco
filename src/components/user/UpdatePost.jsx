@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useStore from "../../store/store";
 import { useFormik } from 'formik';
 import { createPostSchema } from '../../schemas/createpost-schema';
+import PropTypes from 'prop-types';
 
 function UpdatePost({ post }) {
     const { updatePost } = useStore();
@@ -353,5 +354,18 @@ function UpdatePost({ post }) {
         </main>
     )
 }
+
+UpdatePost.propTypes = {
+    post: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        rate: PropTypes.number.isRequired,
+        status: PropTypes.bool.isRequired,
+        postgenres: PropTypes.array.isRequired,
+        postmediums: PropTypes.array.isRequired,
+        synopsis: PropTypes.string.isRequired,
+        review: PropTypes.string.isRequired
+    }).isRequired
+};
 
 export default UpdatePost;

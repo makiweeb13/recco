@@ -3,7 +3,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import useStore from '../store/store';
 
 function SearchBar() {
-    const { setPosts, page, setPage, search, setSearch, setTotalPages } = useStore();
+    const { setPosts, setPage, search, setSearch, setTotalPages } = useStore();
 
     const handleSearch = async () => {
         try {
