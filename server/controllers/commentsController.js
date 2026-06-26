@@ -27,7 +27,7 @@ const updateCommentController = async (req, res, next) => {
     const { content } = req.body;
   
     const dataToUpdate = Object.fromEntries(
-      Object.entries({ content, likes, dislikes })
+      Object.entries({ content })
             .filter(([_, value]) => value !== undefined)
     );
   

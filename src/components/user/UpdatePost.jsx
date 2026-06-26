@@ -142,7 +142,7 @@ function UpdatePost({ post }) {
                     cols="30" 
                     rows="6" 
                     placeholder='Write synopsis..' 
-                    value={values.synopsis}  
+                    value={values.synopsis || ''}  
                     onChange={handleChange} 
                     onBlur={handleBlur}>
                 </textarea>
@@ -175,7 +175,7 @@ UpdatePost.propTypes = {
         status: PropTypes.bool.isRequired,
         postgenres: PropTypes.array.isRequired,
         postmediums: PropTypes.array.isRequired,
-        synopsis: PropTypes.string.isRequired,
+        synopsis: PropTypes.string,
         review: PropTypes.string.isRequired
     }).isRequired
 };

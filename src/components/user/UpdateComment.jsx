@@ -51,7 +51,7 @@ function UpdateComment({ commentId, content, onCancel }) {
 }
 
 UpdateComment.propTypes = {
-    commentId: PropTypes.string.isRequired,
+    commentId: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
     onCancel: PropTypes.func
 };
