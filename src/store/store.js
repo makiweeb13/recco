@@ -9,6 +9,10 @@ const useStore = create((set, get) => ({
     users: [],
     posts: [],
     comments: [],
+    limit: 10,
+    filterGenre: '',
+    filterMedium: '',
+    filterStatus: '',
 
     setUser: (user) => set(() => ({
         user: user
@@ -100,7 +104,15 @@ const useStore = create((set, get) => ({
 
     setTotalPages: (totalPages) => set(() => ({
         totalPages: totalPages
-    }))
+    })),
+
+    setLimit: (limit) => set(() => ({ limit })),
+
+    setFilterGenre: (genre) => set(() => ({ filterGenre: genre })),
+
+    setFilterMedium: (medium) => set(() => ({ filterMedium: medium })),
+
+    setFilterStatus: (status) => set(() => ({ filterStatus: status }))
 }));
 
 export default useStore;

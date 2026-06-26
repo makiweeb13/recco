@@ -870,6 +870,49 @@ input[type="number"]::-webkit-inner-spin-button {
     text-align: center;
 }
 
+.page-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.filters-bar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-left: auto;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.filter-group label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #999;
+    letter-spacing: 0.5px;
+}
+
+.filter-group select {
+    padding: 6px 10px;
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+
+.filter-group select:focus {
+    border-color: var(--orange-color);
+    outline: none;
+}
+
 .pagination {
     display: flex;
     justify-content: center;
