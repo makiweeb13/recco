@@ -15,7 +15,7 @@ function AddComment({ postId, parentId }) {
             if (parentId) {
                 values.parent_id = parentId;
             }
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments`, {
+            const response = await fetch(`/api/comments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',

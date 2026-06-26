@@ -9,7 +9,7 @@ function UpdateProfile() {
         
     const onSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${user.id}`, {
+            const response = await fetch(`/api/users/${user.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -39,8 +39,6 @@ function UpdateProfile() {
         validationSchema: profileSchema,
         onSubmit
     })
-
-    console.log(values)
 
     return (
         <main className="center-add-post">

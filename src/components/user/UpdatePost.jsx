@@ -15,7 +15,7 @@ function UpdatePost({ post }) {
         try {
             values.rate = parseInt(values.rate);
             values.status = JSON.parse(values.status)
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}`, {
+            const response = await fetch(`/api/posts/${post.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -60,8 +60,6 @@ function UpdatePost({ post }) {
         setFieldValue(field, [...fieldValue, value]);
         }
     }
-
-    console.log(values)
 
     return (
         <main className="center-add-post">

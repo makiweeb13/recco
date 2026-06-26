@@ -24,7 +24,7 @@ const createCommentController = async (req, res, next) => {
 
 const updateCommentController = async (req, res, next) => {
     const id = parseInt(req.params.id);
-    const { content, likes, dislikes } = req.body;
+    const { content } = req.body;
   
     const dataToUpdate = Object.fromEntries(
       Object.entries({ content, likes, dislikes })

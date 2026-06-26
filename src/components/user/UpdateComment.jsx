@@ -11,7 +11,7 @@ function UpdateComment({ commentId, content }) {
      const onSubmit = async (value) => {
         try {
             const values = { content: value }
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/${commentId}`, {
+            const response = await fetch(`/api/comments/${commentId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',

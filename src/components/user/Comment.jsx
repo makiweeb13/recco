@@ -18,7 +18,7 @@ function Comment({ comment, preview, setComment }) {
 
     const handleCommentLikes = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/action?comment=${comment.id}&mode=like`, {
+            const response = await fetch(`/api/comments/action?comment=${comment.id}&mode=like`, {
                 method: 'POST',
                 credentials: 'include'
             })
@@ -37,7 +37,7 @@ function Comment({ comment, preview, setComment }) {
 
     const handleCommentDislikes = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/action?comment=${comment.id}&mode=dislike`, {
+            const response = await fetch(`/api/comments/action?comment=${comment.id}&mode=dislike`, {
                 method: 'POST',
                 credentials: 'include'
             })
@@ -62,7 +62,7 @@ function Comment({ comment, preview, setComment }) {
         }
         
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/${comment.id}`, {
+            const response = await fetch(`/api/comments/${comment.id}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
@@ -109,14 +109,14 @@ function Comment({ comment, preview, setComment }) {
                         <>
                         
                         <div>
-                            <Link>
-                            <FontAwesomeIcon icon={faPenToSquare} className="menu-icon" onClick={() => setToggleEdit(!toggleEdit)}/>
-                            </Link>
+                        <span>
+                        <FontAwesomeIcon icon={faPenToSquare} className="menu-icon" onClick={() => setToggleEdit(!toggleEdit)}/>
+                        </span>
                         </div>
                         <div>
-                            <Link>
-                            <FontAwesomeIcon icon={faTrash} className="menu-icon" onClick={handleDelete} />
-                            </Link>
+                        <span>
+                        <FontAwesomeIcon icon={faTrash} className="menu-icon" onClick={handleDelete} />
+                        </span>
                         </div>
                         </>
                     }

@@ -85,7 +85,7 @@ const useStore = create((set, get) => ({
         if (post.comments) {
             return post.comments
                 .filter(comment => comment.parent_id == null)
-                .sort((a, b) => a.likes > b.likes ? 1 : a.likes < b.likes ? -1 : 0)[0];
+                .sort((a, b) => b.commentlikes.length - a.commentlikes.length)[0];
         }
         return null;
     },

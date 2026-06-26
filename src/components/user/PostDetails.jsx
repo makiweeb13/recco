@@ -14,7 +14,7 @@ function PostDetails() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/posts/${id}`)
+        fetch(`/api/posts/${id}`)
             .then(response => response.json())
             .then(json => {
                 setPost(json);

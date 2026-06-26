@@ -44,7 +44,7 @@ const createComment = async ( post_id, user_id, parent_id, content ) => {
         data: {
           post_id: parseInt(post_id),
           user_id: parseInt(user_id),
-          parent_id: null || parent_id,
+          parent_id: parent_id ?? null,
           content
         }
     });

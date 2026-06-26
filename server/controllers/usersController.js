@@ -48,7 +48,7 @@ const signupController = async (req, res, next) => {
     }
     
     const hashedPassword = await bcrypt.hash(password, 10);
-    usersService.createUser(username, email, hashedPassword, bio, profile_picture)
+    await usersService.createUser(username, email, hashedPassword, bio, profile_picture)
     res.status(200).json({ message: 'User registered successfully' });
   } catch (error) {
     next(error)
@@ -97,7 +97,7 @@ const checkAuth = (req, res) => {
 
 const logout = (req, res) => {
   // Clear the JWT cookie
-  res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'strict' });
+  res.clearCookie('token', { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict' });
  
   res.status(200).json({ message: 'Logged out successfully' });
 }

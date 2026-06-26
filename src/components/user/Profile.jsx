@@ -16,7 +16,7 @@ function Profile() {
     const userId = Cookies.get('userId');
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/users/${id}`)
+        fetch(`/api/users/${id}`)
             .then(response => response.json())
             .then(json => {
                 setLoggedInUser(json);

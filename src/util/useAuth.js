@@ -6,7 +6,7 @@ const useAuth = () => {
 
     useEffect(() => {
         
-        fetch('http://localhost:5000/users/check-auth', { credentials: 'include' }) 
+        fetch('/api/users/check-auth', { credentials: 'include' }) 
             .then(response => response.json())
             .then(data => {
                 if (data.isAuthenticated) {

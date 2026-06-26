@@ -8,7 +8,7 @@ function MainContent() {
 
     useEffect(() => {
         if (search === '') {
-            fetch(`${import.meta.env.VITE_API_URL}/posts?search=${search}&page=${page}`)
+            fetch(`/api/posts?search=${search}&page=${page}`)
             .then((res) => res.json())
             .then((data) => {
                 setPosts(data.posts);

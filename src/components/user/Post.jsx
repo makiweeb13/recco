@@ -17,7 +17,7 @@ function Post({ post, detailedMode, setPost }) {
 
     const handlePostLikes = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/action?post=${post.id}&mode=like`, {
+            const response = await fetch(`/api/posts/action?post=${post.id}&mode=like`, {
                 method: 'POST',
                 credentials: 'include'
             })
@@ -36,7 +36,7 @@ function Post({ post, detailedMode, setPost }) {
 
     const handlePostDislikes = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/action?post=${post.id}&mode=dislike`, {
+            const response = await fetch(`/api/posts/action?post=${post.id}&mode=dislike`, {
                 method: 'POST',
                 credentials: 'include'
             })
@@ -61,7 +61,7 @@ function Post({ post, detailedMode, setPost }) {
         }
         
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}`, {
+            const response = await fetch(`/api/posts/${post.id}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
@@ -129,9 +129,9 @@ function Post({ post, detailedMode, setPost }) {
                             </Link>
                         </div>
                         <div>
-                            <Link>
-                            <FontAwesomeIcon icon={faTrash} className="menu-icon" onClick={handleDelete} />
-                            </Link>
+                        <span>
+                        <FontAwesomeIcon icon={faTrash} className="menu-icon" onClick={handleDelete} />
+                        </span>
                         </div>
                         </>
                     }
