@@ -3,16 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useFormik } from 'formik';
 import { userSchema } from '../schemas/login-schema';
-import Cookies from 'js-cookie';
 import { useState } from 'react';
+import useStore from '../store/store';
 
 function Login() {
     const navigate = useNavigate();
+    const { setUser } = useStore();
     const [ errorMessage, setErrorMessage ] = useState('');
 
     const onSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/users/login`, {
+            const response = await fetch(`/api/users/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -21,8 +22,7 @@ function Login() {
             const data = await response.json();
             if (response.ok) {
                 console.log(data.message);
-                Cookies.set('userId', data.user.id, { expires: 1 / 24 })
-                Cookies.set('userEmail', data.user.email, { expires: 1 / 24 })
+                setUser(data.user);
                 resetForm();
                 setSubmitting(false) 
                 navigate('/');
@@ -47,33 +47,35 @@ function Login() {
 
     return (
         <div className="page">
-            <Link to="/"><FontAwesomeIcon icon={faArrowLeft} className="menu-icon"/></Link>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="username" 
-                    name="email" 
-                    placeholder="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                />
-                <br />
-                <input 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    placeholder="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                />
-                <br />
-                { errors.email && touched.email && <p className='error-message'>{errors.email}</p> }
-                { errors.password && touched.password && <p className='error-message'>{errors.password}</p> }
-                { errorMessage && <p className='error-message'>{errorMessage}</p> }
-                <button type="submit">Login</button>
-                <p>Dont have an account yet? <Link to="/signup" className="link">Create Account</Link></p>
-            </form>
+            <div className="page-inner">
+                <Link to="/" className="back-link"><FontAwesomeIcon icon={faArrowLeft} /> Back</Link>
+                <form onSubmit={handleSubmit}>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        placeholder="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={errors.email && touched.email ? 'input-error' : ''}
+                    />
+                    <input 
+                        type="password" 
+                        name="password" 
+                        id="password" 
+                        placeholder="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={errors.password && touched.password ? 'input-error' : ''}
+                    />
+                    { errors.email && touched.email && <p className='error-message'>{errors.email}</p> }
+                    { errors.password && touched.password && <p className='error-message'>{errors.password}</p> }
+                    { errorMessage && <p className='error-message'>{errorMessage}</p> }
+                    <button type="submit">Login</button>
+                    <p>Dont have an account yet? <Link to="/signup" className="link">Create Account</Link></p>
+                </form>
+            </div>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import UpdatePost from './UpdatePost';
+import LoadingScreen from '../LoadingScreen';
 
 function UpdatePostHandler() {
     const { id } = useParams();
@@ -8,7 +9,7 @@ function UpdatePostHandler() {
     const [ isLoading, setIsLoading ] = useState(true);
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/posts/${id}`)
+        fetch(`/api/posts/${id}`)
             .then(response => response.json())
             .then(json => {
                 setCurrentPost(json);
@@ -23,7 +24,8 @@ function UpdatePostHandler() {
         return (
             <UpdatePost post={currentPost} />
         )
-    } 
+    }
+    return <LoadingScreen />;
 }
 
 export default UpdatePostHandler;

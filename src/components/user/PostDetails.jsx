@@ -5,6 +5,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Post from "./Post";
 import AddComment from "./AddComment";
 import useStore from "../../store/store";
+import LoadingScreen from "../LoadingScreen";
 
 function PostDetails() {
     const { id } = useParams();
@@ -14,7 +15,7 @@ function PostDetails() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/posts/${id}`)
+        fetch(`/api/posts/${id}`)
             .then(response => response.json())
             .then(json => {
                 setPost(json);
@@ -29,14 +30,19 @@ function PostDetails() {
     if (!isLoading) {
         return (
             <main>
-                <FontAwesomeIcon icon={faArrowLeft} className="menu-icon" onClick={() => navigate(-1)}/>
+                <div className="back-link" onClick={() => navigate(-1)}>
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                    <span>Back</span>
+                </div>
                 <div className="posts">
                     <Post key={id} post={post} detailedMode={true} setPost={setPost}/>
                 </div>
-                <AddComment postId={id}/>
+                <h3 className="comments-heading">Comments ({post.comments.length})</h3>
+                <AddComment postId={Number(id)}/>
             </main>
         )
     }
+    return <LoadingScreen />;
 }
 
 export default PostDetails;

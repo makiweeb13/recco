@@ -3,20 +3,19 @@ import Posts from './Posts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from 'react-router-dom';
-import profile from '../../assets/profile-icon.png';
+import UserAvatar from '../UserAvatar';
 import useStore from '../../store/store';
-import Cookies from 'js-cookie';
+import LoadingScreen from '../LoadingScreen';
 
 function Profile() {
     
     const { id } = useParams();
-    const { setPosts } = useStore();
+    const { user, setPosts } = useStore();
     const [ loggedInUser, setLoggedInUser ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(true);
-    const userId = Cookies.get('userId');
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/users/${id}`)
+        fetch(`/api/users/${id}`)
             .then(response => response.json())
             .then(json => {
                 setLoggedInUser(json);
@@ -30,25 +29,28 @@ function Profile() {
     
     if (!isLoading) {
         return (
-            <main>
-                <div className="profile">
-                    <img src={profile} alt="profile picture" />
-                    { userId == id &&
-                        <Link to={`/update-profile/${id}`}>
-                            <FontAwesomeIcon icon={faPen} className="menu-icon edit"/>
-                        </Link> 
-                    }
-                    <div className="profile-details">
-                        <h1 className="username">{loggedInUser.username}</h1>
-                        <h4 className="email">{loggedInUser.email}</h4>
-                        <p className="bio">{loggedInUser.bio}</p>
+            <main className="profile-page">
+                <div className="profile-card">
+                    <div className="profile-header">
+                        <UserAvatar username={loggedInUser?.username} size={80} />
+                        { user?.id == id &&
+                            <Link to={`/update-profile/${id}`} className="profile-edit-btn">
+                                <FontAwesomeIcon icon={faPen} />
+                            </Link>
+                        }
+                        <div className="profile-details">
+                            <h1 className="username">{loggedInUser.username}</h1>
+                            <p className="email">{loggedInUser.email}</p>
+                            <p className="bio">{loggedInUser.bio || 'No bio yet.'}</p>
+                        </div>
                     </div>
                 </div>
-                <h2>Posts</h2>
+                <h2 className="profile-posts-heading">Posts</h2>
                 <Posts />
             </main>
         )
     }
+    return <LoadingScreen />;
 }
 
 export default Profile;

@@ -21,7 +21,8 @@ const postSchema = Joi.object({
       .optional(),
 
   synopsis: Joi.string()
-      .optional(),
+      .optional()
+      .allow(''),
 
   review: Joi.string()
       .required()
@@ -90,7 +91,7 @@ const commentSchema = Joi.object({
 const validator = (schema) => (req, res, next) => {
   const { error } = schema.validate(req.body, { abortEarly: false });
   if (error) {
-    return res.status(400).json({ error: error.details.map(err => err.message)});
+    return res.status(400).json({ message: error.details.map(err => err.message).join(', ') });
   }
   next();
 };

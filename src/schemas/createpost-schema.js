@@ -21,7 +21,7 @@ export const createPostSchema = Yup.object({
     .optional(), // Optional field
   
   synopsis: Yup.string()
-    .optional(), // Optional field
+    .optional(),
 
   review: Yup.string()
     .required('Review is required')

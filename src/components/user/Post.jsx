@@ -1,23 +1,23 @@
 import useStore from '../../store/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown, faComment, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import profile from '../../assets/profile-icon.png';
+import UserAvatar from '../UserAvatar';
 import Comment from './Comment';
 import Comments from './Comments';
-import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import ConfirmModal from '../ConfirmModal';
 
-function Post({ post, detailedMode, setPost }) {
+function Post({ post, detailedMode, setPost = () => {} }) {
 
-    const { comments, getDate, getGenres, getMediums, getMostPopularComment, updatePost, removePost } = useStore();
+    const navigate = useNavigate();
+    const { user, comments, getDate, getGenres, getMediums, getMostPopularComment, updatePost, removePost } = useStore();
     const [ comment, setComment ] = useState(getMostPopularComment(post));
-    const userId = Cookies.get('userId');
 
     const handlePostLikes = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/action?post=${post.id}&mode=like`, {
+            const response = await fetch(`/api/posts/action?post=${post.id}&mode=like`, {
                 method: 'POST',
                 credentials: 'include'
             })
@@ -36,7 +36,7 @@ function Post({ post, detailedMode, setPost }) {
 
     const handlePostDislikes = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/action?post=${post.id}&mode=dislike`, {
+            const response = await fetch(`/api/posts/action?post=${post.id}&mode=dislike`, {
                 method: 'POST',
                 credentials: 'include'
             })
@@ -53,15 +53,12 @@ function Post({ post, detailedMode, setPost }) {
         }
     }
 
-    const handleDelete = async () => {
-        const userConfirmed = window.confirm('Are you sure you want to delete this post?');
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-        if (!userConfirmed) {
-            return;
-        }
-        
+    const handleConfirmDelete = async () => {
+        setShowDeleteModal(false);
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}`, {
+            const response = await fetch(`/api/posts/${post.id}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
@@ -70,6 +67,7 @@ function Post({ post, detailedMode, setPost }) {
             if (response.ok) {
                 console.log(data.message);
                 removePost(post.id)
+                if (detailedMode) navigate('/');
 
             } else {
                 console.error(`Post delete failed:`, data.message);
@@ -84,44 +82,58 @@ function Post({ post, detailedMode, setPost }) {
             <div className="post">
                 <div className="user-header">
                     <Link to={`/profile/${post.users.id}`} className='user'>
-                        <img src={profile} alt="user profile" className='user-profile'/>
+                        <UserAvatar username={post.users.username} size={30} />
                         <p className="name">{post.users.username}</p>
                     </Link>
                     <p className="date">{getDate(post.date)}</p>
                 </div>
                 <div className="post-content">
-                    <h4>Title:</h4>
-                    <p className="title">{post.title}</p>
-                    <h4>Genre:</h4>
-                    <p className="genres">{getGenres(post)}</p>
-                    <h4>Status:</h4>
-                    <p className="status">{post.status ? 'Completed' : 'Ongoing'}</p>
-                    <h4>Rate:</h4>
-                    <p className="rate">{post.rate}/10</p>
-                    <h4>Medium:</h4>
-                    <p className="medium">{getMediums(post)}</p>
-                    <h4>Synopsis:</h4>
-                    <p className="synopsis">{post.synopsis}</p>
-                    <h4>Review:</h4>
-                    <p className="review">{post.review}</p>
+                    {post.image && <img src={post.image} alt="" className="post-image" />}
+                    <h3 className="post-title">{post.title}</h3>
+                    <div className="post-meta">
+                        <span className="post-meta-chip">{getGenres(post)}</span>
+                        <span className="post-meta-chip">⭐ {post.rate}/10</span>
+                        <span className={`post-meta-chip status ${post.status ? 'completed' : 'ongoing'}`}>
+                            {post.status ? 'Completed' : 'Ongoing'}
+                        </span>
+                        <span className="post-meta-chip">{getMediums(post)}</span>
+                    </div>
+                    {post.synopsis && (
+                        <div className="post-section">
+                            <h4 className="post-section-heading">Synopsis</h4>
+                            <p className="post-body">{post.synopsis}</p>
+                        </div>
+                    )}
+                    {post.review && (
+                        <div className="post-section">
+                            <h4 className="post-section-heading">Review</h4>
+                            <p className="post-body">{post.review}</p>
+                        </div>
+                    )}
                 </div>
                 <div className="options">
                     <div className="likes">
-                        <p>{post.postlikes.length}&nbsp;</p>
+                        <p className="count">{post.postlikes.length}</p>
                         <FontAwesomeIcon icon={faThumbsUp} className="menu-icon" onClick={handlePostLikes} />
                     </div>
                     <div className="dislikes">
-                        <p>{post.postdislikes.length}&nbsp;</p>
+                        <p className="count">{post.postdislikes.length}</p>
                         <FontAwesomeIcon icon={faThumbsDown} className="menu-icon" onClick={handlePostDislikes} />
                     </div>
                     <div>
-                        <p>{post.comments.length}&nbsp;</p>
-                        <Link to={!detailedMode ? `/post/${post.id}` : ''}>
+                        <p className="count">{post.comments.length}</p>
+                        {!detailedMode ? (
+                          <Link to={`/post/${post.id}`}>
                             <FontAwesomeIcon icon={faComment} className="menu-icon" />
-                        </Link>
+                          </Link>
+                        ) : (
+                          <span>
+                            <FontAwesomeIcon icon={faComment} className="menu-icon" />
+                          </span>
+                        )}
                     </div>
                     {
-                        post.user_id == userId &&
+                        post.user_id === user?.id &&
                         <>
                         <div>
                             <Link to={`/update-post/${post.id}`}>
@@ -129,14 +141,21 @@ function Post({ post, detailedMode, setPost }) {
                             </Link>
                         </div>
                         <div>
-                            <Link>
-                            <FontAwesomeIcon icon={faTrash} className="menu-icon" onClick={handleDelete} />
-                            </Link>
+                        <span>
+                        <FontAwesomeIcon icon={faTrash} className="menu-icon" onClick={() => setShowDeleteModal(true)} />
+                        </span>
                         </div>
                         </>
                     }
                 </div>
             </div>
+            {showDeleteModal && (
+                <ConfirmModal
+                    message="Are you sure you want to delete this post? This action cannot be undone."
+                    onConfirm={handleConfirmDelete}
+                    onCancel={() => setShowDeleteModal(false)}
+                />
+            )}
             { detailedMode && <Comments comments={comments} /> }
             { !detailedMode && comment && <Comment key={comment.id} comment={comment} preview={true} setComment={setComment}/> }
         </>
@@ -146,7 +165,7 @@ function Post({ post, detailedMode, setPost }) {
 Post.propTypes = {
     post: PropTypes.object.isRequired,
     detailedMode: PropTypes.bool,
-    setPost: PropTypes.func.isRequired
+    setPost: PropTypes.func
 };
 
 export default Post;

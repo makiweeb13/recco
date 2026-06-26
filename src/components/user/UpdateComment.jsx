@@ -4,14 +4,14 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import useStore from '../../store/store';
 
-function UpdateComment({ commentId, content }) {
+function UpdateComment({ commentId, content, onCancel }) {
     const [ value, setValue ] = useState(content)
     const { updateComment } = useStore();
 
      const onSubmit = async (value) => {
         try {
             const values = { content: value }
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/${commentId}`, {
+            const response = await fetch(`/api/comments/${commentId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -31,15 +31,21 @@ function UpdateComment({ commentId, content }) {
    
     return (
         <div className="add-comment">
-            <textarea 
-                name="comment-content" 
-                id="comment-content" 
-                rows="2" 
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-            >
-            </textarea>
-            <button disabled={value.length > 0 ? false : true} onClick={() => onSubmit(value)}><FontAwesomeIcon icon={faPen} /></button>
+            <div className="reply-header">
+                <span>Editing comment</span>
+                <button className="cancel-btn" onClick={onCancel}>Cancel</button>
+            </div>
+            <div className="add-comment-row">
+                <textarea 
+                    name="comment-content"
+                    className="comment-input"
+                    rows="2" 
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                >
+                </textarea>
+                <button disabled={value.length === 0} onClick={() => onSubmit(value)}><FontAwesomeIcon icon={faPen} /></button>
+            </div>
         </div>
     )
 }
@@ -47,6 +53,7 @@ function UpdateComment({ commentId, content }) {
 UpdateComment.propTypes = {
     commentId: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
+    onCancel: PropTypes.func
 };
 
 export default UpdateComment;

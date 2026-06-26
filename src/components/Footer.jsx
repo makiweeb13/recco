@@ -1,11 +1,15 @@
 function Footer() {
     return (
         <footer>
-            <div>
-                <p>Dev: Maria Mae Kiskis</p>
-                <p>22105083@usc.edu.ph</p>
+            <div className="footer-brand">
+                <h3 className="app-name">recco</h3>
+                <p className="footer-tagline">Share your favorite media</p>
             </div>
-            <p>&copy; 2026. All rights reserved.</p>
+            <div className="footer-info">
+                <p>Dev: Maria Mae Kiskis</p>
+                <p className="footer-email">22105083@usc.edu.ph</p>
+            </div>
+            <p className="footer-copy">&copy; 2026 recco. All rights reserved.</p>
         </footer>
     )
 }

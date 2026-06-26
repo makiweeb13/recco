@@ -7,7 +7,7 @@ function SearchBar() {
 
     const handleSearch = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts?search=${search}`);
+            const response = await fetch(`/api/posts?search=${search}`);
             const data = await response.json();
             if (response.ok) {
                 setPosts(data.posts);
@@ -27,6 +27,7 @@ function SearchBar() {
                 id="search"
                 value={search} 
                 onChange={e => setSearch(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="search by title"
             />
             <FontAwesomeIcon icon={faMagnifyingGlass} className="menu-icon" onClick={handleSearch}/>

@@ -2,16 +2,16 @@ const { ThrowError } = require('../middleware/errorHandler');
 const postsService = require('../services/postsService');
 
 const getAllPostsController = async (req, res, next) => {
-  const { search, page } = req.query
-  const limit = 2;
-  const skip = (parseInt(page || 1) - 1) * limit;
+  const { search, page, limit, genre, medium, status } = req.query
+  const postsPerPage = parseInt(limit) || 10;
+  const skip = (parseInt(page || 1) - 1) * postsPerPage;
 
   try {
-    const totalPosts = await postsService.getTotalPosts(search);
-    const posts = await postsService.getAllPosts(skip, limit, search);
+    const totalPosts = await postsService.getTotalPosts(search, genre, medium, status);
+    const posts = await postsService.getAllPosts(skip, postsPerPage, search, genre, medium, status);
     res.status(200).json({
       totalPosts,
-      totalPages: Math.ceil(totalPosts / limit),
+      totalPages: Math.ceil(totalPosts / postsPerPage),
       currentPage: page,
       posts
     });

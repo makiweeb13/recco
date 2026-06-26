@@ -1,24 +1,23 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import ConfirmModal from '../ConfirmModal';
 import useStore from '../../store/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown, faReply, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import profile from '../../assets/profile-icon.png';
+import UserAvatar from '../UserAvatar';
 import AddComment from './AddComment';
-import Cookies from 'js-cookie'; 
 import { Link } from 'react-router-dom';
 import UpdateComment from './UpdateComment';
 
-function Comment({ comment, preview, setComment }) {
+function Comment({ comment, preview, setComment = () => {} }) {
 
-    const { getDate, removeComment, updateComment } = useStore();
+    const { user, getDate, removeComment, updateComment } = useStore();
     const [ toggleReply, setToggleReply ] = useState(false);
     const [ toggleEdit, setToggleEdit ] = useState(false);
-    const userId = Cookies.get('userId');
 
     const handleCommentLikes = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/action?comment=${comment.id}&mode=like`, {
+            const response = await fetch(`/api/comments/action?comment=${comment.id}&mode=like`, {
                 method: 'POST',
                 credentials: 'include'
             })
@@ -37,7 +36,7 @@ function Comment({ comment, preview, setComment }) {
 
     const handleCommentDislikes = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/action?comment=${comment.id}&mode=dislike`, {
+            const response = await fetch(`/api/comments/action?comment=${comment.id}&mode=dislike`, {
                 method: 'POST',
                 credentials: 'include'
             })
@@ -54,15 +53,12 @@ function Comment({ comment, preview, setComment }) {
         }
     }
     
-    const handleDelete = async () => {
-        const userConfirmed = window.confirm('Are you sure you want to delete this comment?');
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-        if (!userConfirmed) {
-            return;
-        }
-        
+    const handleConfirmDelete = async () => {
+        setShowDeleteModal(false);
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments/${comment.id}`, {
+            const response = await fetch(`/api/comments/${comment.id}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
@@ -82,48 +78,56 @@ function Comment({ comment, preview, setComment }) {
 
     return (
         <>
-            <div className="comment">
+            <div className={`comment ${comment.parent_id ? 'reply' : ''}`}>
                 <div className="user-header">
                     <Link to={`/profile/${comment.users.id}`} className='user'>
-                        <img src={profile} alt="user profile" className='user-profile'/>
+                        <UserAvatar username={comment.users.username} size={30} />
                         <p className="comment-user-name">{comment.users.username}</p>
-                        {comment.parent_id && <p>&nbsp;replying to {comment.comments.users.username}</p>}
                     </Link>
                     <p className="comment-date">{getDate(comment.date)}</p>
                 </div>
+                {comment.parent_id && comment.comments?.users?.username && (
+                    <p className="comment-reply-to">↪ replying to @{comment.comments.users.username}</p>
+                )}
                 <p className="comment-content">{comment.content}</p>
                 <div className="options">
                     <div>
-                        <p className="comment-likes">{comment.commentlikes.length}&nbsp;</p>
+                        <p className="comment-likes count">{comment.commentlikes.length}</p>
                         <FontAwesomeIcon icon={faThumbsUp} className="menu-icon" onClick={handleCommentLikes} />
                     </div>
                     <div>
-                        <p className="comment-dislikes">{comment.commentdislikes.length}&nbsp;</p>
+                        <p className="comment-dislikes count">{comment.commentdislikes.length}</p>
                         <FontAwesomeIcon icon={faThumbsDown} className="menu-icon" onClick={handleCommentDislikes} />
                     </div>
                     <div>
-                        <FontAwesomeIcon icon={faReply} className="menu-icon" onClick={() => setToggleReply(!toggleReply)}/>
+                        <FontAwesomeIcon icon={faReply} className={`menu-icon ${toggleReply ? 'active' : ''}`} onClick={() => setToggleReply(!toggleReply)}/>
                     </div>
                     {
-                        comment.user_id == userId && !preview &&
+                        comment.user_id === user?.id && !preview &&
                         <>
-                        
                         <div>
-                            <Link>
-                            <FontAwesomeIcon icon={faPenToSquare} className="menu-icon" onClick={() => setToggleEdit(!toggleEdit)}/>
-                            </Link>
+                        <span>
+                        <FontAwesomeIcon icon={faPenToSquare} className="menu-icon" onClick={() => setToggleEdit(!toggleEdit)}/>
+                        </span>
                         </div>
                         <div>
-                            <Link>
-                            <FontAwesomeIcon icon={faTrash} className="menu-icon" onClick={handleDelete} />
-                            </Link>
+                        <span>
+                        <FontAwesomeIcon icon={faTrash} className="menu-icon" onClick={() => setShowDeleteModal(true)} />
+                        </span>
                         </div>
                         </>
                     }
                 </div>
             </div>
-            { toggleReply && <AddComment postId={comment.post_id} parentId={comment.id} /> }
-            { toggleEdit && <UpdateComment commentId={comment.id} content={comment.content} /> }
+            {showDeleteModal && (
+                <ConfirmModal
+                    message="Are you sure you want to delete this comment? This action cannot be undone."
+                    onConfirm={handleConfirmDelete}
+                    onCancel={() => setShowDeleteModal(false)}
+                />
+            )}
+            { toggleReply && <AddComment postId={comment.post_id} parentId={comment.id} parentUsername={comment.users.username} onCancel={() => setToggleReply(false)} /> }
+            { toggleEdit && <UpdateComment commentId={comment.id} content={comment.content} onCancel={() => setToggleEdit(false)} /> }
         </>
         
     )
@@ -132,7 +136,7 @@ function Comment({ comment, preview, setComment }) {
 Comment.propTypes = {
     comment: PropTypes.object.isRequired,
     preview: PropTypes.bool,
-    setComment: PropTypes.func.isRequired
+    setComment: PropTypes.func
 };
 
 export default Comment;
