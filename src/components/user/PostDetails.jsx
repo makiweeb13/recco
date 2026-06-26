@@ -29,11 +29,15 @@ function PostDetails() {
     if (!isLoading) {
         return (
             <main>
-                <FontAwesomeIcon icon={faArrowLeft} className="menu-icon" onClick={() => navigate(-1)}/>
+                <div className="back-link" onClick={() => navigate(-1)}>
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                    <span>Back</span>
+                </div>
                 <div className="posts">
                     <Post key={id} post={post} detailedMode={true} setPost={setPost}/>
                 </div>
-                <AddComment postId={id}/>
+                <h3 className="comments-heading">Comments ({post.comments.length})</h3>
+                <AddComment postId={Number(id)}/>
             </main>
         )
     }

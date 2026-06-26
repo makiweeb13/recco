@@ -8,9 +8,9 @@ function Header() {
             <SearchBar />
             <div className="guest-options">
                 <Link to="/login">
-                    <button>Login</button>
+                    <button className="btn-outline">Login</button>
                 </Link>
-                <p>or</p> 
+                <span className="divider" />
                 <Link to="/signup">
                     <button>Register</button>
                 </Link>

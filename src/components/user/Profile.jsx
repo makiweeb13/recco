@@ -28,21 +28,23 @@ function Profile() {
     
     if (!isLoading) {
         return (
-            <main>
-                <div className="profile">
-                    <UserAvatar username={loggedInUser?.username} size={80} />
-                    { user?.id == id &&
-                        <Link to={`/update-profile/${id}`}>
-                            <FontAwesomeIcon icon={faPen} className="menu-icon edit"/>
-                        </Link> 
-                    }
-                    <div className="profile-details">
-                        <h1 className="username">{loggedInUser.username}</h1>
-                        <h4 className="email">{loggedInUser.email}</h4>
-                        <p className="bio">{loggedInUser.bio || 'No bio yet.'}</p>
+            <main className="profile-page">
+                <div className="profile-card">
+                    <div className="profile-header">
+                        <UserAvatar username={loggedInUser?.username} size={80} />
+                        { user?.id == id &&
+                            <Link to={`/update-profile/${id}`} className="profile-edit-btn">
+                                <FontAwesomeIcon icon={faPen} />
+                            </Link>
+                        }
+                        <div className="profile-details">
+                            <h1 className="username">{loggedInUser.username}</h1>
+                            <p className="email">{loggedInUser.email}</p>
+                            <p className="bio">{loggedInUser.bio || 'No bio yet.'}</p>
+                        </div>
                     </div>
                 </div>
-                <h2>Posts</h2>
+                <h2 className="profile-posts-heading">Posts</h2>
                 <Posts />
             </main>
         )

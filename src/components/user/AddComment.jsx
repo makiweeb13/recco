@@ -4,7 +4,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import useStore from '../../store/store';
 
-function AddComment({ postId, parentId }) {
+function AddComment({ postId, parentId, parentUsername, onCancel }) {
     const [ value, setValue ] = useState('')
     const { addComment } = useStore();
     const label = parentId ? 'reply' : 'comment';
@@ -37,23 +37,33 @@ function AddComment({ postId, parentId }) {
    
     return (
         <div className="add-comment">
-            <textarea 
-                name="comment-content" 
-                id="comment-content" 
-                rows="2" 
-                placeholder={`Write a ${label}...`}
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-            >
-            </textarea>
-            <button disabled={value.length > 0 ? false : true} onClick={() => onSubmit(value)}><FontAwesomeIcon icon={faPaperPlane} /></button>
+            {parentId && (
+                <div className="reply-header">
+                    <span>↪ Replying to @{parentUsername}</span>
+                    <button className="cancel-btn" onClick={onCancel}>Cancel</button>
+                </div>
+            )}
+            <div className="add-comment-row">
+                <textarea 
+                    name="comment-content" 
+                    className="comment-input"
+                    rows="2" 
+                    placeholder={`Write a ${label}...`}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                >
+                </textarea>
+                <button disabled={value.length === 0} onClick={() => onSubmit(value)}><FontAwesomeIcon icon={faPaperPlane} /></button>
+            </div>
         </div>
     )
 }
 
 AddComment.propTypes = {
     postId: PropTypes.number.isRequired,
-    parentId: PropTypes.number
+    parentId: PropTypes.number,
+    parentUsername: PropTypes.string,
+    onCancel: PropTypes.func
 };
 
 export default AddComment;

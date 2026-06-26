@@ -21,7 +21,8 @@ const postSchema = Joi.object({
       .optional(),
 
   synopsis: Joi.string()
-      .optional(),
+      .optional()
+      .allow(''),
 
   review: Joi.string()
       .required()

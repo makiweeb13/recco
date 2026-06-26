@@ -41,38 +41,38 @@ function UpdateProfile() {
     })
 
     return (
-        <main className="center-add-post">
+        <main className="create-post-page">
             <h2>Edit Profile</h2>
-            <form onSubmit={handleSubmit} className="add-post vertical-align">
-                <label htmlFor="username">Username</label>
+            <form onSubmit={handleSubmit} className="post-form-card">
+                <label htmlFor="profile-username">Username</label>
                 <input 
                     type="text" 
                     name="username" 
-                    id="title" 
+                    id="profile-username" 
                     value={values.username} 
                     onChange={handleChange} 
                     onBlur={handleBlur}
                 />
-                <label htmlFor="email">Email</label>
+                <label htmlFor="profile-email">Email</label>
                 <input 
                     type="email" 
                     name="email" 
-                    id="title" 
+                    id="profile-email" 
                     value={values.email} 
                     onChange={handleChange} 
                     onBlur={handleBlur}
                 />
-                <label htmlFor="bio">Bio</label>
+                <label htmlFor="profile-bio">Bio</label>
                 <textarea
                     name="bio" 
-                    id="synopsis" 
+                    id="profile-bio" 
                     cols="30" 
                     rows="5" 
                     placeholder='Write your bio here..' 
                     value={values.bio}  
                     onChange={handleChange} 
                     onBlur={handleBlur}>
-                </textarea><br />
+                </textarea>
                 { errors.username && touched.username && <p className='error-message'>{errors.username}</p> }
                 { errors.email && touched.email && <p className='error-message'>{errors.email}</p> }
                 { errors.bio && touched.bio && <p className='error-message'>{errors.bio}</p> }
