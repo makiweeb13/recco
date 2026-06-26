@@ -5,16 +5,18 @@ function UserAvatar({ username, size = 30 }) {
     '#E67E22', '#2ECC71', '#E74C3C', '#3498DB',
   ];
   const hash = username ? username.split('').reduce((a, c) => a + c.charCodeAt(0), 0) : 0;
-  const bg = colors[hash % colors.length];
-  const initials = username ? username.slice(0, 2).toUpperCase() : '?';
+  const bg = username ? colors[hash % colors.length] : '#444';
+  const initials = username ? username.slice(0, 2).toUpperCase() : '';
 
   return (
     <svg width={size} height={size} viewBox="0 0 30 30">
       <circle cx="15" cy="15" r="15" fill={bg} />
-      <text x="15" y="15" textAnchor="middle" dominantBaseline="central"
-        fill="#fff" fontSize={size * 0.4} fontFamily="Inter, sans-serif" fontWeight="600">
-        {initials}
-      </text>
+      {initials && (
+        <text x="15" y="15" textAnchor="middle" dominantBaseline="central"
+          fill="#fff" fontSize={12} fontFamily="Inter, sans-serif" fontWeight="600">
+          {initials}
+        </text>
+      )}
     </svg>
   );
 }

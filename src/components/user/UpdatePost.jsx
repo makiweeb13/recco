@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useStore from "../../store/store";
 import { useFormik } from 'formik';
 import { createPostSchema } from '../../schemas/createpost-schema';
+import { GENRES, MEDIUMS } from '../../data/categories';
 import PropTypes from 'prop-types';
 
 function UpdatePost({ post }) {
@@ -105,219 +106,26 @@ function UpdatePost({ post }) {
                     <option value={false}>Ongoing</option>
                 </select>
                 <div className="dropdown-container">
-                    <div className="dropdown">
+                    <div className="dropdown" tabIndex={0}>
                         <label htmlFor="genre">Select Genre <FontAwesomeIcon icon={faCaretDown} /></label>
                         <div className="dropdown-content">
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Action" 
-                                    onChange={() => handleCheckboxChange('genres', 1)} 
-                                    onBlur={handleBlur}
-                                    checked={values.genres.includes(1)}
-                                /> Action
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Adventure" 
-                                    onChange={() => handleCheckboxChange('genres', 2)}  
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(2)}
-                                /> Adventure
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Comedy" 
-                                    onChange={() => handleCheckboxChange('genres', 3)} 
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(3)}
-                                /> Comedy
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Drama" 
-                                    onChange={() => handleCheckboxChange('genres', 4)}  
-                                    onBlur={handleBlur}
-                                    checked={values.genres.includes(4)} 
-                                /> Drama
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Fantasy" 
-                                    onChange={() => handleCheckboxChange('genres', 5)} 
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(5)}
-                                /> Fantasy
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Horror"  
-                                    onChange={() => handleCheckboxChange('genres', 6)} 
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(6)}
-                                /> Horror
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Mystery" 
-                                    onChange={() => handleCheckboxChange('genres', 7)}  
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(7)}
-                                /> Mystery
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Romance" 
-                                    onChange={() => handleCheckboxChange('genres', 8)} 
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(8)}
-                                /> Romance
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Sci-Fi" 
-                                    onChange={() => handleCheckboxChange('genres', 9)} 
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(9)}
-                                /> Sci-Fi
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Thriller" 
-                                    onChange={() => handleCheckboxChange('genres', 10)} 
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(10)}
-                                /> Thriller
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Supernatural" 
-                                    onChange={() => handleCheckboxChange('genres', 11)} 
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(11)}
-                                /> Supernatural
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Psychological" 
-                                    onChange={() => handleCheckboxChange('genres', 12)} 
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(12)}
-                                /> Psychological
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Historical" 
-                                    onChange={() => handleCheckboxChange('genres', 13)} 
-                                    onBlur={handleBlur} 
-                                    checked={values.genres.includes(13)}
-                                /> Historical
-                            </label>
+                            {GENRES.map(g => (
+                                <label key={g.id}>
+                                    <input type="checkbox" onChange={() => handleCheckboxChange('genres', g.id)} onBlur={handleBlur} checked={values.genres.includes(g.id)} />
+                                    {' '}{g.name}
+                                </label>
+                            ))}
                         </div>
                     </div>
-                    <div className="dropdown">
+                    <div className="dropdown" tabIndex={0}>
                         <label htmlFor="medium">Select Medium <FontAwesomeIcon icon={faCaretDown} /></label>
                         <div className="dropdown-content">
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Movie"
-                                    onChange={() => handleCheckboxChange('mediums', 1)}
-                                    checked={values.mediums.includes(1)} 
-                                /> Movie
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Anime"
-                                    onChange={() => handleCheckboxChange('mediums', 2)} 
-                                    checked={values.mediums.includes(2)}  
-                                /> Anime
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Manga"
-                                    onChange={() => handleCheckboxChange('mediums', 3)} 
-                                    checked={values.mediums.includes(3)} 
-                                /> Manga
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Novel"
-                                    onChange={() => handleCheckboxChange('mediums', 4)}
-                                    checked={values.mediums.includes(4)}  
-                                /> Novel
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Comic" 
-                                    onChange={() => handleCheckboxChange('mediums', 5)} 
-                                    checked={values.mediums.includes(5)} 
-                                /> Comic
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="TV Show"
-                                    onChange={() => handleCheckboxChange('mediums', 6)} 
-                                    checked={values.mediums.includes(6)} 
-                                /> TV Show
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Video Game"
-                                    onChange={() => handleCheckboxChange('mediums', 7)} 
-                                    checked={values.mediums.includes(7)} 
-                                /> Video Game
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Webtoon" 
-                                    onChange={() => handleCheckboxChange('mediums', 8)} 
-                                    checked={values.mediums.includes(8)} 
-                                /> Webtoon
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Light Novel" 
-                                    onChange={() => handleCheckboxChange('mediums', 9)} 
-                                    checked={values.mediums.includes(9)} 
-                                /> Light Novel
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="TV Series" 
-                                    onChange={() => handleCheckboxChange('mediums', 10)} 
-                                    checked={values.mediums.includes(10)} 
-                                /> TV Series
-                            </label>
-                            <label>
-                                <input 
-                                    type="checkbox" 
-                                    name="Movie Series" 
-                                    onChange={() => handleCheckboxChange('mediums', 11)} 
-                                    checked={values.mediums.includes(11)} 
-                                /> Movie Series
-                            </label>
+                            {MEDIUMS.map(m => (
+                                <label key={m.id}>
+                                    <input type="checkbox" onChange={() => handleCheckboxChange('mediums', m.id)} checked={values.mediums.includes(m.id)} />
+                                    {' '}{m.name}
+                                </label>
+                            ))}
                         </div>
                     </div>
                 </div>

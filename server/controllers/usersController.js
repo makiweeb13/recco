@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const { ThrowError } = require('../middleware/errorHandler');
 const usersService = require('../services/usersService');
+const prisma = require('../prisma/client');
 
 dotenv.config();
 const SECRET_KEY = process.env.JWT_SECRET;
@@ -80,19 +81,26 @@ const loginController = async (req, res, next) => {
   }
 }
 
-const checkAuth = (req, res) => {
+const checkAuth = async (req, res) => {
   const token = req.cookies.token;
 
   if (!token) {
     return res.json({ isAuthenticated: false });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) {
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await prisma.users.findUnique({
+      where: { id: decoded.id },
+      select: { id: true, username: true, email: true, bio: true }
+    });
+    if (!user) {
       return res.json({ isAuthenticated: false });
     }
-    return res.json({ isAuthenticated: true, user: user });
-  })
+    return res.json({ isAuthenticated: true, user });
+  } catch {
+    return res.json({ isAuthenticated: false });
+  }
 }
 
 const logout = (req, res) => {

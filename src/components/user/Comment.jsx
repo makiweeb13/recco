@@ -85,25 +85,25 @@ function Comment({ comment, preview, setComment }) {
                     <Link to={`/profile/${comment.users.id}`} className='user'>
                         <UserAvatar username={comment.users.username} size={30} />
                         <p className="comment-user-name">{comment.users.username}</p>
-                        {comment.parent_id && <p>&nbsp;replying to {comment.comments.users.username}</p>}
+                        {comment.parent_id && comment.comments?.users?.username && <p>&nbsp;replying to {comment.comments.users.username}</p>}
                     </Link>
                     <p className="comment-date">{getDate(comment.date)}</p>
                 </div>
                 <p className="comment-content">{comment.content}</p>
                 <div className="options">
                     <div>
-                        <p className="comment-likes">{comment.commentlikes.length}&nbsp;</p>
+                        <p className="comment-likes count">{comment.commentlikes.length}</p>
                         <FontAwesomeIcon icon={faThumbsUp} className="menu-icon" onClick={handleCommentLikes} />
                     </div>
                     <div>
-                        <p className="comment-dislikes">{comment.commentdislikes.length}&nbsp;</p>
+                        <p className="comment-dislikes count">{comment.commentdislikes.length}</p>
                         <FontAwesomeIcon icon={faThumbsDown} className="menu-icon" onClick={handleCommentDislikes} />
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faReply} className="menu-icon" onClick={() => setToggleReply(!toggleReply)}/>
                     </div>
                     {
-                        comment.user_id == user?.id && !preview &&
+                        comment.user_id === user?.id && !preview &&
                         <>
                         
                         <div>

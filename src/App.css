@@ -60,16 +60,19 @@ button:hover {
     margin-right: 20px;
 }
 
-.menu-icon:hover {
+    .menu-icon:hover {
     color: var(--peach-color);
 }
 
-.user-menu-profile {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+.search-bar .menu-icon {
+    cursor: pointer;
+    padding: 8px;
+}
+
+.dropdown svg {
     position: relative;
     bottom: 6px;
+    cursor: pointer;
 }
 
 .guest-options p {
@@ -133,35 +136,12 @@ main {
     width: 100%;
     max-width: 750px;
     align-self: center;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-   
-}
-
-.user-profile {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
+    padding: 12px 20px;
+    margin-bottom: 16px;
 }
 
 .user {
     display: flex;
-}
-
-.menu {
-    height: 200px;
-    width: 150px;
-    position: fixed;
-    left: 0;
-    top: 100;
-    padding-top: 40px;
-    color: #fff;
-    background-color: red;
-}
-
-.menu ul {
-    display: block;
 }
 
 .create-post-btn {
@@ -174,9 +154,13 @@ main {
 
 .options div {
     display: flex;
-    margin-right: 10px;
+    margin-right: 14px;
     align-items: center;
     cursor: pointer;
+}
+
+.options .count {
+    margin-right: 4px;
 }
 
 .page {
@@ -201,7 +185,7 @@ main {
     width: 350px;
     background-color: #444; 
     color: #fff;
-    margin: 15px 0;
+    margin: 0 0 15px 0;
 }
 
 /* Target input fields that have been autofilled */
@@ -214,8 +198,8 @@ input:-webkit-autofill {
 }
 
 .page form button {
-    position: relative;
-    left: 80%;
+    display: block;
+    margin-left: auto;
     margin-bottom: 30px;
 }
 
@@ -262,7 +246,8 @@ input:-webkit-autofill {
     border: 1px solid var(--orange-color);
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
     display: block;
 }
 
@@ -318,7 +303,8 @@ input:-webkit-autofill {
 }
 
 .add-post button {
-    float: right;
+    display: block;
+    margin: 20px auto 0;
 }
  
 input,
@@ -346,9 +332,13 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 20px;
 }
 
-.profile img {
-    border-radius: 50%;
-    margin: 50px 0 15px 20px;
+.profile {
+    position: relative;
+}
+
+.profile svg {
+    margin: 50px auto 15px;
+    display: block;
 }
 
 .profile .bio {
@@ -356,8 +346,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .edit {
-    float: right;
-    padding: 20px 0;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
 .input-error {
@@ -440,6 +431,9 @@ footer {
 
     footer {
         font-size: 10px;
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
     }
 
     .menu-icon {
@@ -462,7 +456,7 @@ footer {
 
 @media screen and (max-width: 370px) {
     .search-bar input {
-        width: 60px;
+        width: 80px;
     }
 
     .page form input {

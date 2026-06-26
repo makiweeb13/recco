@@ -39,7 +39,7 @@ function Profile() {
                     <div className="profile-details">
                         <h1 className="username">{loggedInUser.username}</h1>
                         <h4 className="email">{loggedInUser.email}</h4>
-                        <p className="bio">{loggedInUser.bio}</p>
+                        <p className="bio">{loggedInUser.bio || 'No bio yet.'}</p>
                     </div>
                 </div>
                 <h2>Posts</h2>

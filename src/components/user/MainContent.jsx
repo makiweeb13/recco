@@ -19,19 +19,21 @@ function MainContent() {
         }
     }, [page, search, setPosts, setTotalPages])
 
-    if (!isLoading) {
-        return (
-            <main>
-                <h2>Home</h2>
-                <Posts />
-                <p className="center">
-                    <button disabled={page > 1 ? false : true } onClick={() => setPage(page-1)}>Previous</button>
-                    &nbsp;|&nbsp;
-                    <button disabled={page < totalPages ? false : true } onClick={() => setPage(page+1)}>Next</button>
-                </p>
-            </main>
-        )
+    if (isLoading) {
+        return <main><p className="center">Loading posts...</p></main>;
     }
+
+    return (
+        <main>
+            <h2>Home</h2>
+            <Posts />
+            <p className="center">
+                <button disabled={page <= 1} onClick={() => setPage(page - 1)}>Previous</button>
+                <span> | </span>
+                <button disabled={page >= totalPages} onClick={() => setPage(page + 1)}>Next</button>
+            </p>
+        </main>
+    )
 }
 
 export default MainContent

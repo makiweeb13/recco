@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Post({ post, detailedMode, setPost }) {
+function Post({ post, detailedMode, setPost = () => {} }) {
 
     const { user, comments, getDate, getGenres, getMediums, getMostPopularComment, updatePost, removePost } = useStore();
     const [ comment, setComment ] = useState(getMostPopularComment(post));
@@ -105,21 +105,27 @@ function Post({ post, detailedMode, setPost }) {
                 </div>
                 <div className="options">
                     <div className="likes">
-                        <p>{post.postlikes.length}&nbsp;</p>
+                        <p className="count">{post.postlikes.length}</p>
                         <FontAwesomeIcon icon={faThumbsUp} className="menu-icon" onClick={handlePostLikes} />
                     </div>
                     <div className="dislikes">
-                        <p>{post.postdislikes.length}&nbsp;</p>
+                        <p className="count">{post.postdislikes.length}</p>
                         <FontAwesomeIcon icon={faThumbsDown} className="menu-icon" onClick={handlePostDislikes} />
                     </div>
                     <div>
-                        <p>{post.comments.length}&nbsp;</p>
-                        <Link to={!detailedMode ? `/post/${post.id}` : ''}>
+                        <p className="count">{post.comments.length}</p>
+                        {!detailedMode ? (
+                          <Link to={`/post/${post.id}`}>
                             <FontAwesomeIcon icon={faComment} className="menu-icon" />
-                        </Link>
+                          </Link>
+                        ) : (
+                          <span>
+                            <FontAwesomeIcon icon={faComment} className="menu-icon" />
+                          </span>
+                        )}
                     </div>
                     {
-                        post.user_id == user?.id &&
+                        post.user_id === user?.id &&
                         <>
                         <div>
                             <Link to={`/update-post/${post.id}`}>
@@ -144,7 +150,7 @@ function Post({ post, detailedMode, setPost }) {
 Post.propTypes = {
     post: PropTypes.object.isRequired,
     detailedMode: PropTypes.bool,
-    setPost: PropTypes.func.isRequired
+    setPost: PropTypes.func
 };
 
 export default Post;

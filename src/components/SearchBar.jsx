@@ -27,6 +27,7 @@ function SearchBar() {
                 id="search"
                 value={search} 
                 onChange={e => setSearch(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="search by title"
             />
             <FontAwesomeIcon icon={faMagnifyingGlass} className="menu-icon" onClick={handleSearch}/>

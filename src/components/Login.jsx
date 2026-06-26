@@ -50,14 +50,14 @@ function Login() {
             <Link to="/"><FontAwesomeIcon icon={faArrowLeft} className="menu-icon"/></Link>
             <form onSubmit={handleSubmit}>
                 <input 
-                    type="username" 
+                    type="text" 
                     name="email" 
                     placeholder="email"
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    className={errors.email && touched.email ? 'input-error' : ''}
                 />
-                <br />
                 <input 
                     type="password" 
                     name="password" 
@@ -66,8 +66,8 @@ function Login() {
                     value={values.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    className={errors.password && touched.password ? 'input-error' : ''}
                 />
-                <br />
                 { errors.email && touched.email && <p className='error-message'>{errors.email}</p> }
                 { errors.password && touched.password && <p className='error-message'>{errors.password}</p> }
                 { errorMessage && <p className='error-message'>{errorMessage}</p> }

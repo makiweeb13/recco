@@ -49,7 +49,6 @@ function Signup() {
                     onBlur={handleBlur}
                     className={errors.username && touched.username ? 'input-error' : ''}
                 />
-                <br />
                 <input 
                     type="email" 
                     name="email" 
@@ -60,7 +59,6 @@ function Signup() {
                     onBlur={handleBlur}
                     className={errors.email && touched.email ? 'input-error' : ''}
                 />
-                <br />
                 <input 
                     type="password" 
                     name="password" 
@@ -71,7 +69,6 @@ function Signup() {
                     onBlur={handleBlur}
                     className={errors.password && touched.password ? 'input-error' : ''}
                 />
-                <br />
                 <input 
                     type="password" 
                     name="confirmPassword" 
@@ -82,7 +79,6 @@ function Signup() {
                     onBlur={handleBlur}
                     className={errors.confirmPassword && touched.confirmPassword ? 'input-error' : ''}
                 />
-                <br />
                 { errors.username && touched.username && <p className='error-message'>{errors.username}</p> }
                 { errors.email && touched.email && <p className='error-message'>{errors.email}</p> }
                 { errors.password && touched.password && <p className='error-message'>{errors.password}</p> }
