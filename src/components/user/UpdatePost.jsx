@@ -39,13 +39,13 @@ function UpdatePost({ post }) {
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } = useFormik({
         initialValues: {
-            title: post.title,
+            title: post.title || '',
             rate: post.rate,
-            status: post.status,
+            status: post.status ? 'true' : 'false',
             genres: post.postgenres.map(genre => genre.genre_id),
             mediums: post.postmediums.map(medium => medium.medium_id),
-            synopsis: post.synopsis,
-            review: post.review
+            synopsis: post.synopsis || '',
+            review: post.review || ''
         },
         validationSchema: createPostSchema,
         onSubmit
