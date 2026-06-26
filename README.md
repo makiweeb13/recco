@@ -6,118 +6,125 @@ Recco is a social media platform designed for users to share and recommend their
 
 ### User Authentication & Profile Management
 - Secure user registration and login system
-- JWT-based authentication
-- Customizable user profiles with bio and avatar
+- JWT-based authentication with httpOnly cookies
+- Customizable user profiles with bio
 - Profile editing capabilities
 - Protected routes for authenticated users
 
-<table>
-  <tr>
-    <td><img src="./screenshots/login.png" alt="Homepage" width="400"/></td>
-    <td><img src="./screenshots/register.png" alt="User Dashboard" width="400"/></td>
-  </tr>
-</table>
-<table>
-  <tr>
-    <td><img src="./screenshots/profile.png" alt="Homepage" width="400"/></td>
-    <td><img src="./screenshots/edit-profile.png" alt="User Dashboard" width="400"/></td>
-  </tr>
-</table>
-
 ### Content Management
 - Create and share detailed show recommendations
-- Include show titles, synopses, and personal reviews
-- Rate shows with a custom rating system
+- Include synopses and personal reviews
+- Rate shows out of 10
+- Assign genres and mediums (Movie, Anime, Manga, etc.)
+- Track completion status (Completed / Ongoing)
 - Update or delete your own posts
-- Rich text content support for reviews
-
-<table>
-  <tr>
-    <td><img src="./screenshots/add-post.png" alt="Homepage" width="400"/></td>
-    <td><img src="./screenshots/edit-post.png" alt="User Dashboard" width="400"/></td>
-  </tr>
-</table>
 
 ### Social Interaction
-- Comment on posts
-- Reply on comments
-- React like or dislike on comments and posts
-- Update and delete your own comments
+- Comment on posts with threaded replies
+- Like or dislike comments and posts
+- Edit and delete your own comments
 - View other users' profiles
-- Interactive user interface with real-time feedback
-
-<table>
-  <tr>
-    <td><img src="./screenshots/post.png" alt="Homepage" width="400"/></td>
-    <td><img src="./screenshots/comments.png" alt="User Dashboard" width="400"/></td>
-  </tr>
-</table>
 
 ### Search & Discovery
-- Search functionality to find specific shows or reviews
-- Browse all posts in a clean, organized feed
-- Filter and sort content options
-- Mobile-responsive design for all devices
-
-<table>
-  <tr>
-    <td><img src="./screenshots/dashboard.png" alt="Homepage" width="400"/></td>
-    <td><img src="./screenshots/filtered.png" alt="User Dashboard" width="400"/></td>
-  </tr>
-</table>
+- Search posts by title
+- Filter by genre, medium, and status
+- Configurable posts-per-page
+- Paginated feed
 
 ### User Interface
-- Dark theme for comfortable viewing
-- Responsive header with user menu
-- Clean and intuitive navigation
-- Error handling and user feedback
+- Dark theme throughout
+- Clean card-based layouts
+- Mobile-responsive design
 - Loading states and animations
-
-### Security Features
-- Protected API endpoints
-- Input validation and sanitization
-- Secure password handling
-- Protected user data access
-- Session management
+- SVG avatar initials with hash-based coloring
 
 ## Technologies Used
 
 **Frontend:**
-- **React**: A JavaScript library for building user interfaces.
-- **Zustand**: A small, fast state management solution for React.
-- **Formik**: A library for managing form state and validation.
-- **Yup**: A schema builder for value parsing and validation.
-- **js-cookie**: A simple, lightweight JavaScript API for handling cookies.
+- **React** — UI library
+- **Zustand** — Lightweight state management
+- **Formik** — Form state and validation
+- **Yup** — Schema-based form validation
+- **Font Awesome** — Icons
+- **React Router** — Client-side routing
+- **Vite** — Build tool and dev server
 
 **Backend:**
-- **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine.
-- **Prisma ORM**: An open-source database toolkit for TypeScript and Node.js.
-- **Joi**: A powerful schema description language and data validator for JavaScript.
-- **cookie-parser**: Middleware to parse cookies in HTTP requests.
-- **CORS**: Middleware for enabling Cross-Origin Resource Sharing.
-- **dotenv**: A zero-dependency module that loads environment variables from a `.env` file into `process.env`.
-- **JWT (JSON Web Tokens)**: A compact, URL-safe means of representing claims to be transferred between two parties.
+- **Node.js** + **Express** — Server and API
+- **Prisma ORM** — Database access and migrations
+- **Joi** — Request validation
+- **JWT (jsonwebtoken)** — Authentication tokens
+- **cookie-parser** — Cookie parsing
+- **bcryptjs** — Password hashing
 
 **Database:**
-- **MySQL**: An open-source relational database management system.
+- **TiDB Serverless** (MySQL-compatible)
+
+## Project Structure
+
+```
+recco/
+├── package.json              # Root package with dev scripts
+├── server/
+│   ├── controllers/          # Route handlers
+│   ├── middleware/           # Auth, validation, error handling
+│   ├── prisma/               # Schema + seed data
+│   ├── routes/               # Express route definitions
+│   └── services/             # Business logic
+├── src/
+│   ├── components/           # React components
+│   │   ├── user/             # Authenticated user components
+│   │   ├── Login.jsx
+│   │   ├── Signup.jsx
+│   │   └── ...
+│   ├── data/                 # Static data (genres, mediums)
+│   ├── schemas/              # Yup validation schemas
+│   ├── store/                # Zustand state management
+│   └── App.css               # Global styles
+└── vite.config.js
+```
 
 ## Getting Started
 
+### Prerequisites
+- Node.js 18+
+- MySQL-compatible database (TiDB Serverless recommended)
+
+### Setup
+
 1. Clone the repository
-2. Import the existing database from the `database` folder
-3. Install dependencies:
+
+2. Install dependencies:
    ```bash
-   npm install        # Install frontend dependencies
-   cd server
-   npm install        # Install backend dependencies
-   ```
-4. Set up your environment variables
-5. Start the development servers:
-   ```bash
-   npm run dev        # Start frontend
-   cd server
-   npm run dev        # Start backend
+   npm install
+   cd server && npm install
    ```
 
-## Note
-Import existing database located in the database folder before starting the application.
+3. Configure environment variables:
+   Create `server/.env` with:
+   ```env
+   DATABASE_URL="mysql://user:password@host:4000/recco?sslaccept=strict"
+   JWT_SECRET=your_jwt_secret
+   PORT=5000
+   ```
+
+4. Set up the database schema and seed data:
+   ```bash
+   cd server
+   npx prisma db push
+   node prisma/seed.js
+   ```
+
+5. Start the development server (runs both frontend and backend):
+   ```bash
+   npm run dev
+   ```
+
+The app will be available at `http://localhost:5173`.
+
+### Seed Accounts
+
+| Email | Password |
+|---|---|
+| alice@example.com | Password1! |
+| bob@example.com | Password1! |
