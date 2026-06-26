@@ -5,16 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown, faReply, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import profile from '../../assets/profile-icon.png';
 import AddComment from './AddComment';
-import Cookies from 'js-cookie'; 
 import { Link } from 'react-router-dom';
 import UpdateComment from './UpdateComment';
 
 function Comment({ comment, preview, setComment }) {
 
-    const { getDate, removeComment, updateComment } = useStore();
+    const { user, getDate, removeComment, updateComment } = useStore();
     const [ toggleReply, setToggleReply ] = useState(false);
     const [ toggleEdit, setToggleEdit ] = useState(false);
-    const userId = Cookies.get('userId');
 
     const handleCommentLikes = async () => {
         try {
@@ -105,7 +103,7 @@ function Comment({ comment, preview, setComment }) {
                         <FontAwesomeIcon icon={faReply} className="menu-icon" onClick={() => setToggleReply(!toggleReply)}/>
                     </div>
                     {
-                        comment.user_id == userId && !preview &&
+                        comment.user_id == user?.id && !preview &&
                         <>
                         
                         <div>

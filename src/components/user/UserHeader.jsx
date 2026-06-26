@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faBell, faPlus } from "@fortawesome/free-solid-svg-icons";
 import profile from '../../assets/profile-icon.png';
-import Cookies from 'js-cookie';
 import SearchBar from '../SearchBar';
+import useStore from '../../store/store';
 
 function UserHeader() {
-    const userId = Cookies.get('userId');
+    const { user, setUser } = useStore();
 
     const handleLogout = async () => {
         try {
@@ -17,8 +17,7 @@ function UserHeader() {
             const data = await response.json();
             if (response.ok) {
                 console.log(data.message);
-                Cookies.remove('userId');
-                Cookies.remove('userEmail');
+                setUser(null);
             } else {
                 console.error('Logout failed', data.message);
             }
@@ -48,7 +47,7 @@ function UserHeader() {
                     <div className="dropdown-content move-left">
                         
                         <label>
-                            <Link to={`/profile/${userId}`} className="user">Profile</Link>
+                            <Link to={`/profile/${user?.id}`} className="user">Profile</Link>
                         </label>
                         <label>
                             <Link to={`/login`} className="user" onClick={handleLogout}>Logout</Link>

@@ -5,15 +5,13 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from 'react-router-dom';
 import profile from '../../assets/profile-icon.png';
 import useStore from '../../store/store';
-import Cookies from 'js-cookie';
 
 function Profile() {
     
     const { id } = useParams();
-    const { setPosts } = useStore();
+    const { user, setPosts } = useStore();
     const [ loggedInUser, setLoggedInUser ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(true);
-    const userId = Cookies.get('userId');
 
     useEffect(() => {
         fetch(`/api/users/${id}`)
@@ -33,7 +31,7 @@ function Profile() {
             <main>
                 <div className="profile">
                     <img src={profile} alt="profile picture" />
-                    { userId == id &&
+                    { user?.id == id &&
                         <Link to={`/update-profile/${id}`}>
                             <FontAwesomeIcon icon={faPen} className="menu-icon edit"/>
                         </Link> 

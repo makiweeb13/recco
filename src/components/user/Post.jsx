@@ -5,15 +5,13 @@ import profile from '../../assets/profile-icon.png';
 import Comment from './Comment';
 import Comments from './Comments';
 import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function Post({ post, detailedMode, setPost }) {
 
-    const { comments, getDate, getGenres, getMediums, getMostPopularComment, updatePost, removePost } = useStore();
+    const { user, comments, getDate, getGenres, getMediums, getMostPopularComment, updatePost, removePost } = useStore();
     const [ comment, setComment ] = useState(getMostPopularComment(post));
-    const userId = Cookies.get('userId');
 
     const handlePostLikes = async () => {
         try {
@@ -121,7 +119,7 @@ function Post({ post, detailedMode, setPost }) {
                         </Link>
                     </div>
                     {
-                        post.user_id == userId &&
+                        post.user_id == user?.id &&
                         <>
                         <div>
                             <Link to={`/update-post/${post.id}`}>
