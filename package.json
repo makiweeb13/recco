@@ -2,7 +2,6 @@
   "name": "solo-project",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "concurrently -n client,server -c cyan,green \"vite\" \"npm run dev --prefix server\"",
     "build": "vite build",
