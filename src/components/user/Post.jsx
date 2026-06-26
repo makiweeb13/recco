@@ -1,7 +1,7 @@
 import useStore from '../../store/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown, faComment, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import profile from '../../assets/profile-icon.png';
+import UserAvatar from '../UserAvatar';
 import Comment from './Comment';
 import Comments from './Comments';
 import { Link } from 'react-router-dom';
@@ -82,7 +82,7 @@ function Post({ post, detailedMode, setPost }) {
             <div className="post">
                 <div className="user-header">
                     <Link to={`/profile/${post.users.id}`} className='user'>
-                        <img src={profile} alt="user profile" className='user-profile'/>
+                        <UserAvatar username={post.users.username} size={30} />
                         <p className="name">{post.users.username}</p>
                     </Link>
                     <p className="date">{getDate(post.date)}</p>

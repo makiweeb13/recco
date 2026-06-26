@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import useStore from '../../store/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown, faReply, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import profile from '../../assets/profile-icon.png';
+import UserAvatar from '../UserAvatar';
 import AddComment from './AddComment';
 import { Link } from 'react-router-dom';
 import UpdateComment from './UpdateComment';
@@ -83,7 +83,7 @@ function Comment({ comment, preview, setComment }) {
             <div className="comment">
                 <div className="user-header">
                     <Link to={`/profile/${comment.users.id}`} className='user'>
-                        <img src={profile} alt="user profile" className='user-profile'/>
+                        <UserAvatar username={comment.users.username} size={30} />
                         <p className="comment-user-name">{comment.users.username}</p>
                         {comment.parent_id && <p>&nbsp;replying to {comment.comments.users.username}</p>}
                     </Link>

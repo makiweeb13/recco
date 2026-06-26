@@ -3,7 +3,7 @@ import Posts from './Posts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from 'react-router-dom';
-import profile from '../../assets/profile-icon.png';
+import UserAvatar from '../UserAvatar';
 import useStore from '../../store/store';
 
 function Profile() {
@@ -30,7 +30,7 @@ function Profile() {
         return (
             <main>
                 <div className="profile">
-                    <img src={profile} alt="profile picture" />
+                    <UserAvatar username={loggedInUser?.username} size={80} />
                     { user?.id == id &&
                         <Link to={`/update-profile/${id}`}>
                             <FontAwesomeIcon icon={faPen} className="menu-icon edit"/>

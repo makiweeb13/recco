@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faBell, faPlus } from "@fortawesome/free-solid-svg-icons";
-import profile from '../../assets/profile-icon.png';
 import SearchBar from '../SearchBar';
+import UserAvatar from '../UserAvatar';
 import useStore from '../../store/store';
 
 function UserHeader() {
@@ -43,7 +43,7 @@ function UserHeader() {
                     </button>
                 </Link>
                 <div className="dropdown align-right">
-                    <img src={profile} alt="user profile" className="user-menu-profile"/>
+                    <UserAvatar username={user?.username} size={30} />
                     <div className="dropdown-content move-left">
                         
                         <label>
