@@ -5,6 +5,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from 'react-router-dom';
 import UserAvatar from '../UserAvatar';
 import useStore from '../../store/store';
+import LoadingScreen from '../LoadingScreen';
 
 function Profile() {
     
@@ -49,6 +50,7 @@ function Profile() {
             </main>
         )
     }
+    return <LoadingScreen />;
 }
 
 export default Profile;

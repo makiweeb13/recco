@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import UpdatePost from './UpdatePost';
+import LoadingScreen from '../LoadingScreen';
 
 function UpdatePostHandler() {
     const { id } = useParams();
@@ -23,7 +24,8 @@ function UpdatePostHandler() {
         return (
             <UpdatePost post={currentPost} />
         )
-    } 
+    }
+    return <LoadingScreen />;
 }
 
 export default UpdatePostHandler;

@@ -5,6 +5,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Post from "./Post";
 import AddComment from "./AddComment";
 import useStore from "../../store/store";
+import LoadingScreen from "../LoadingScreen";
 
 function PostDetails() {
     const { id } = useParams();
@@ -41,6 +42,7 @@ function PostDetails() {
             </main>
         )
     }
+    return <LoadingScreen />;
 }
 
 export default PostDetails;

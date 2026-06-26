@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import useStore from '../../store/store';
 import Posts from './Posts';
 import { GENRES, MEDIUMS } from '../../data/categories';
+import LoadingScreen from '../LoadingScreen';
 
 function MainContent() {
     const { setPosts, page, search, setPage, totalPages, setTotalPages, limit, setLimit, filterGenre, setFilterGenre, filterMedium, setFilterMedium, filterStatus, setFilterStatus } = useStore();
@@ -24,7 +25,7 @@ function MainContent() {
     }, [page, search, limit, filterGenre, filterMedium, filterStatus, setPosts, setTotalPages])
 
     if (isLoading) {
-        return <main><p className="center">Loading posts...</p></main>;
+        return <LoadingScreen />;
     }
 
     return (

@@ -47,33 +47,35 @@ function Login() {
 
     return (
         <div className="page">
-            <Link to="/"><FontAwesomeIcon icon={faArrowLeft} className="menu-icon"/></Link>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="text" 
-                    name="email" 
-                    placeholder="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={errors.email && touched.email ? 'input-error' : ''}
-                />
-                <input 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    placeholder="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={errors.password && touched.password ? 'input-error' : ''}
-                />
-                { errors.email && touched.email && <p className='error-message'>{errors.email}</p> }
-                { errors.password && touched.password && <p className='error-message'>{errors.password}</p> }
-                { errorMessage && <p className='error-message'>{errorMessage}</p> }
-                <button type="submit">Login</button>
-                <p>Dont have an account yet? <Link to="/signup" className="link">Create Account</Link></p>
-            </form>
+            <div className="page-inner">
+                <Link to="/" className="back-link"><FontAwesomeIcon icon={faArrowLeft} /> Back</Link>
+                <form onSubmit={handleSubmit}>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        placeholder="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={errors.email && touched.email ? 'input-error' : ''}
+                    />
+                    <input 
+                        type="password" 
+                        name="password" 
+                        id="password" 
+                        placeholder="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={errors.password && touched.password ? 'input-error' : ''}
+                    />
+                    { errors.email && touched.email && <p className='error-message'>{errors.email}</p> }
+                    { errors.password && touched.password && <p className='error-message'>{errors.password}</p> }
+                    { errorMessage && <p className='error-message'>{errorMessage}</p> }
+                    <button type="submit">Login</button>
+                    <p>Dont have an account yet? <Link to="/signup" className="link">Create Account</Link></p>
+                </form>
+            </div>
         </div>
     )
 }

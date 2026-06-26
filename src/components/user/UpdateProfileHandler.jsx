@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useStore from '../../store/store';
 import UpdateProfile from './UpdateProfile';
+import LoadingScreen from '../LoadingScreen';
 
 function UpdateProfileHandler() {
     const { id } = useParams();
@@ -22,7 +23,8 @@ function UpdateProfileHandler() {
 
     if (!isLoading) {
        return  <UpdateProfile />
-    } 
+    }
+    return <LoadingScreen />;
 }
 
 export default UpdateProfileHandler;
