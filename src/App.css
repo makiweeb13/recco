@@ -32,29 +32,97 @@ body::-webkit-scrollbar {
     display: none;
 }
 
-.search-bar {
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: #000;
     display: flex;
     align-items: center;
-    gap: 8px;
+    padding: 12px 24px;
+    gap: 12px;
+    border-bottom: 1px solid #333;
+    animation: searchFadeIn 0.15s ease;
 }
 
-.search-bar input {
+@keyframes searchFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.search-overlay input {
+    flex: 1;
     padding: 10px 14px;
     border: 1px solid #444;
     border-radius: 10px;
-    width: 300px;
-    background-color: #444;
+    background-color: #222;
     color: #fff;
+    font-size: 16px;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.search-bar input:focus {
+.search-overlay input:focus {
+    outline: none;
     border-color: var(--orange-color);
     box-shadow: 0 0 0 2px rgba(255, 152, 116, 0.25);
 }
 
-.search-bar input::placeholder {
+.search-overlay input::placeholder {
     color: #888;
+}
+
+.search-desktop {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.search-desktop .menu-icon {
+    cursor: pointer;
+}
+
+.search-desktop-input {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-width 0.3s ease, opacity 0.2s ease;
+}
+
+.search-desktop-input.open {
+    max-width: 260px;
+    opacity: 1;
+}
+
+.search-desktop-input input {
+    padding: 8px 12px;
+    border: 1px solid #444;
+    border-radius: 10px;
+    width: 200px;
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-desktop-input input:focus {
+    outline: none;
+    border-color: var(--orange-color);
+    box-shadow: 0 0 0 2px rgba(255, 152, 116, 0.25);
+}
+
+.search-desktop-input input::placeholder {
+    color: #888;
+}
+
+@media screen and (max-width: 700px) {
+    .search-desktop {
+        display: none;
+    }
 }
 
 button {
@@ -116,11 +184,6 @@ button:active {
 
 .bell-placeholder .menu-icon {
     cursor: not-allowed;
-}
-
-.search-bar .menu-icon {
-    cursor: pointer;
-    padding: 8px;
 }
 
 .dropdown svg {
@@ -1052,10 +1115,6 @@ footer {
         padding: 10px 16px;
     }
 
-    .search-bar input {
-        width: 120px;
-    }
-
     .app-name {
         font-size: 1.3rem;
     }
@@ -1174,10 +1233,6 @@ footer {
 }
 
 @media screen and (max-width: 400px) {
-    .search-bar input {
-        width: 90px;
-    }
-
     .filters-bar {
         flex-direction: column;
     }

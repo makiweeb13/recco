@@ -5,6 +5,7 @@ const useStore = create((set, get) => ({
     user: null,
     page: 1,
     search: '',
+    searchQuery: '',
     totalPages: 0,
     users: [],
     posts: [],
@@ -100,6 +101,10 @@ const useStore = create((set, get) => ({
 
     setSearch: (search) => set(() => ({
         search: search
+    })),
+
+    setSearchQuery: (query) => set(() => ({
+        searchQuery: query
     })),
 
     setTotalPages: (totalPages) => set(() => ({

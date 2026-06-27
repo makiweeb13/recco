@@ -5,8 +5,8 @@ function Header() {
     return (
         <header>
             <h1 className="app-name">recco</h1>
-            <SearchBar />
             <div className="guest-options">
+                <SearchBar />
                 <Link to="/login">
                     <button className="btn-outline">Login</button>
                 </Link>

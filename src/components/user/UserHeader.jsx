@@ -29,7 +29,6 @@ function UserHeader() {
     return (
         <header>
             <h1 className="app-name">recco</h1>
-            <SearchBar />
             <div className="user-options">
                 <Link to="/">
                     <FontAwesomeIcon icon={faHouse} className="menu-icon" />
@@ -37,6 +36,7 @@ function UserHeader() {
                 <span className="bell-placeholder" title="Notifications (coming soon)">
                     <FontAwesomeIcon icon={faBell} className="menu-icon" />
                 </span>
+                <SearchBar />
                 <Link to="/create-post">
                     <button className="create-post-btn">
                         <FontAwesomeIcon icon={faPlus}/> <span className="show-btn-label">Create</span>

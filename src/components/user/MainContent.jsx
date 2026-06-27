@@ -5,11 +5,11 @@ import { GENRES, MEDIUMS } from '../../data/categories';
 import LoadingScreen from '../LoadingScreen';
 
 function MainContent() {
-    const { setPosts, page, search, setPage, totalPages, setTotalPages, limit, setLimit, filterGenre, setFilterGenre, filterMedium, setFilterMedium, filterStatus, setFilterStatus } = useStore();
+    const { setPosts, page, searchQuery, search, setPage, totalPages, setTotalPages, limit, setLimit, filterGenre, setFilterGenre, filterMedium, setFilterMedium, filterStatus, setFilterStatus } = useStore();
     const [ isLoading, setIsLoading ] = useState(true);
 
     useEffect(() => {
-        const params = new URLSearchParams({ search, page, limit });
+        const params = new URLSearchParams({ search: searchQuery, page, limit });
         if (filterGenre) params.set('genre', filterGenre);
         if (filterMedium) params.set('medium', filterMedium);
         if (filterStatus) params.set('status', filterStatus);
@@ -22,7 +22,7 @@ function MainContent() {
             setIsLoading(false);
         })
         .catch((error) => console.error('Error fetching posts:', error));
-    }, [page, search, limit, filterGenre, filterMedium, filterStatus, setPosts, setTotalPages])
+    }, [page, searchQuery, limit, filterGenre, filterMedium, filterStatus, setPosts, setTotalPages])
 
     if (isLoading) {
         return <LoadingScreen />;
