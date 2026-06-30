@@ -59,7 +59,7 @@ function NotificationBell() {
     }
     setOpen(false);
     if (notif.post_id) {
-      navigate(`/post/${notif.post_id}`);
+      navigate(`/post/${notif.post_id}`, { state: { refresh: Date.now() } });
     }
   };
 

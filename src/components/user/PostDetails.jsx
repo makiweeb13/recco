@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Post from "./Post";
@@ -9,12 +9,14 @@ import LoadingScreen from "../LoadingScreen";
 
 function PostDetails() {
     const { id } = useParams();
+    const location = useLocation();
     const [ post, setPost ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(true);
     const { setComments } = useStore();
     const navigate = useNavigate();
 
     useEffect(() => {
+        setIsLoading(true);
         fetch(`/api/posts/${id}`)
             .then(response => response.json())
             .then(json => {
@@ -25,7 +27,7 @@ function PostDetails() {
             .catch(() => {
                 throw Error('Post Not Found')
             })
-    }, [id, setComments])
+    }, [id, location.state?.refresh, setComments])
 
     if (!isLoading) {
         return (

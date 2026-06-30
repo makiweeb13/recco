@@ -15,6 +15,7 @@ function Profile() {
     const [ isLoading, setIsLoading ] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true);
         fetch(`/api/users/${id}`)
             .then(response => response.json())
             .then(json => {

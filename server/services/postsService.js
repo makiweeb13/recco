@@ -303,6 +303,16 @@ const createPostLike = async ( user_id, post_id, mode ) => {
               }
             })
           }
+          const post = await prisma.posts.findUnique({ where: { id: post_id }, select: { user_id: true, title: true } });
+          if (post && post.user_id !== user_id) {
+            const actor = await prisma.users.findUnique({ where: { id: user_id }, select: { username: true } });
+            const notif = await notificationsService.createNotification(
+              post.user_id, user_id, 'dislike',
+              `${actor.username} disliked your post "${post.title.substring(0, 50)}"`,
+              post_id, null
+            );
+            try { getIO().to(`user:${post.user_id}`).emit('notification', notif); } catch {}
+          }
         }
     }
 }

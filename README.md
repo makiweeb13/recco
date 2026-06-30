@@ -6,7 +6,7 @@ Recco is a social media platform designed for users to share and recommend their
 
 ### User Authentication & Profile Management
 - Secure user registration and login system
-- JWT-based authentication with httpOnly cookies
+- JWT-based authentication with Bearer tokens
 - Customizable user profiles with bio
 - Profile editing capabilities
 - Protected routes for authenticated users
@@ -24,6 +24,15 @@ Recco is a social media platform designed for users to share and recommend their
 - Like or dislike comments and posts
 - Edit and delete your own comments
 - View other users' profiles
+
+### Real-Time Notifications
+- Instant notifications via WebSocket (Socket.io)
+- Notified when someone likes or dislikes your post
+- Notified when someone comments on your post or replies to your comment
+- Notified when someone likes your comment
+- Interactive bell icon with unread count badge
+- Notification dropdown panel with mark-all-as-read
+- Click a notification to jump directly to the related post
 
 ### Search & Discovery
 - Search posts by title
@@ -51,10 +60,10 @@ Recco is a social media platform designed for users to share and recommend their
 
 **Backend:**
 - **Node.js** + **Express** — Server and API
+- **Socket.io** — Real-time WebSocket notifications
 - **Prisma ORM** — Database access and migrations
 - **Joi** — Request validation
 - **JWT (jsonwebtoken)** — Authentication tokens
-- **cookie-parser** — Cookie parsing
 - **bcryptjs** — Password hashing
 
 **Database:**

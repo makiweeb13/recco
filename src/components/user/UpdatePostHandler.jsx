@@ -9,6 +9,7 @@ function UpdatePostHandler() {
     const [ isLoading, setIsLoading ] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true);
         fetch(`/api/posts/${id}`)
             .then(response => response.json())
             .then(json => {

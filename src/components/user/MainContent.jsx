@@ -9,6 +9,7 @@ function MainContent() {
     const [ isLoading, setIsLoading ] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true);
         const params = new URLSearchParams({ search: searchQuery, page, limit });
         if (filterGenre) params.set('genre', filterGenre);
         if (filterMedium) params.set('medium', filterMedium);
