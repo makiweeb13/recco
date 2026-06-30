@@ -59,9 +59,28 @@ model users {
   commentdislikes commentdislikes[]
   commentlikes    commentlikes[]
   comments        comments[]
+  notifications   notifications[]   @relation("recipient")
+  notifications_actor notifications[] @relation("actor")
   postdislikes    postdislikes[]
   postlikes       postlikes[]
   posts           posts[]
+}
+
+model notifications {
+  id         Int       @id @default(autoincrement())
+  user_id    Int
+  actor_id   Int
+  type       String    @db.VarChar(50)
+  post_id    Int?
+  comment_id Int?
+  message    String    @db.Text
+  read       Boolean   @default(false)
+  created_at DateTime  @default(now()) @db.Timestamp(0)
+
+  users  users @relation("recipient", fields: [user_id], references: [id], onDelete: Cascade)
+  actors users @relation("actor", fields: [actor_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id, read])
 }
 
 model genres {

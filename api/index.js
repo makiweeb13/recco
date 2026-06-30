@@ -18,6 +18,7 @@ const routes = require('../server/routes');
 app.use('/api/users', routes.usersRoutes);
 app.use('/api/posts', routes.postsRoutes);
 app.use('/api/comments', routes.commentsRoutes);
+app.use('/api/notifications', routes.notificationsRoutes);
 
 const { errorHandler } = require('../server/middleware/errorHandler');
 app.use(errorHandler);

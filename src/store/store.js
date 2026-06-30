@@ -117,7 +117,35 @@ const useStore = create((set, get) => ({
 
     setFilterMedium: (medium) => set(() => ({ filterMedium: medium })),
 
-    setFilterStatus: (status) => set(() => ({ filterStatus: status }))
+    setFilterStatus: (status) => set(() => ({ filterStatus: status })),
+
+    // Notification state
+    notifications: [],
+    unreadCount: 0,
+
+    setNotifications: (notifications) => set({ notifications }),
+
+    setUnreadCount: (count) => set({ unreadCount: count }),
+
+    addNotification: (notification) => set((state) => ({
+      notifications: [notification, ...state.notifications],
+      unreadCount: state.unreadCount + 1
+    })),
+
+    markNotificationRead: (id) => set((state) => {
+      const updated = state.notifications.map(n =>
+        n.id === id ? { ...n, read: true } : n
+      );
+      return {
+        notifications: updated,
+        unreadCount: Math.max(0, state.unreadCount - 1)
+      };
+    }),
+
+    markAllNotificationsRead: () => set((state) => ({
+      notifications: state.notifications.map(n => ({ ...n, read: true })),
+      unreadCount: 0
+    }))
 }));
 
 export default useStore;

@@ -1,4 +1,6 @@
 const prisma = require('../prisma/client');
+const { getIO } = require('../socket');
+const notificationsService = require('./notificationsService');
 
 function buildWhere(search, genre, medium, status) {
     return {
@@ -248,13 +250,13 @@ const createPostLike = async ( user_id, post_id, mode ) => {
       })
   
     if (mode === 'like') {
-        if (like) { 
+        if (like) {
           await prisma.postlikes.delete({
             where: {
               id: like.id
             }
           })
-        } else { 
+        } else {
           await prisma.postlikes.create({
           data: {
             post_id,
@@ -267,6 +269,16 @@ const createPostLike = async ( user_id, post_id, mode ) => {
                 id: dislike.id
               }
             })
+          }
+          const post = await prisma.posts.findUnique({ where: { id: post_id }, select: { user_id: true, title: true } });
+          if (post && post.user_id !== user_id) {
+            const actor = await prisma.users.findUnique({ where: { id: user_id }, select: { username: true } });
+            const notif = await notificationsService.createNotification(
+              post.user_id, user_id, 'like',
+              `${actor.username} liked your post "${post.title.substring(0, 50)}"`,
+              post_id, null
+            );
+            try { getIO().to(`user:${post.user_id}`).emit('notification', notif); } catch {}
           }
         }
       } 

@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faBell, faPlus, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faPlus, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from '../SearchBar';
 import UserAvatar from '../UserAvatar';
+import NotificationBell from './NotificationBell';
 import useStore from '../../store/store';
 
 function UserHeader() {
@@ -33,9 +34,7 @@ function UserHeader() {
                 <Link to="/">
                     <FontAwesomeIcon icon={faHouse} className="menu-icon" />
                 </Link>
-                <span className="bell-placeholder" title="Notifications (coming soon)">
-                    <FontAwesomeIcon icon={faBell} className="menu-icon" />
-                </span>
+                <NotificationBell />
                 <SearchBar />
                 <Link to="/create-post">
                     <button className="create-post-btn">
