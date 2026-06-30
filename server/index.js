@@ -25,10 +25,10 @@ const PORT = process.env.PORT || 5000;
 const routes = require('./routes');
 
 // Routes
-app.use('/users', routes.usersRoutes);
-app.use('/posts', routes.postsRoutes);
-app.use('/comments', routes.commentsRoutes);
-app.use('/notifications', routes.notificationsRoutes);
+app.use('/api/users', routes.usersRoutes);
+app.use('/api/posts', routes.postsRoutes);
+app.use('/api/comments', routes.commentsRoutes);
+app.use('/api/notifications', routes.notificationsRoutes);
 
 app.use(errorHandler);
 
