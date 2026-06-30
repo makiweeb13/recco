@@ -8,7 +8,7 @@ import useStore from '../store/store';
 
 function Login() {
     const navigate = useNavigate();
-    const { setUser } = useStore();
+    const { setUser, setToken } = useStore();
     const [ errorMessage, setErrorMessage ] = useState('');
 
     const onSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -16,13 +16,14 @@ function Login() {
             const response = await fetch(`/api/users/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
                 body: JSON.stringify(values)
             })
             const data = await response.json();
             if (response.ok) {
                 console.log(data.message);
                 setUser(data.user);
+                setToken(data.token);
+                localStorage.setItem('token', data.token);
                 resetForm();
                 setSubmitting(false) 
                 navigate('/');

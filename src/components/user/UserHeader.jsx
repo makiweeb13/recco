@@ -7,24 +7,11 @@ import NotificationBell from './NotificationBell';
 import useStore from '../../store/store';
 
 function UserHeader() {
-    const { user, setUser } = useStore();
+    const { user, logout } = useStore();
 
-    const handleLogout = async () => {
-        try {
-            const response = await fetch(`/api/users/logout`, {
-                method: 'POST',
-                credentials: 'include'
-            })
-            const data = await response.json();
-            if (response.ok) {
-                console.log(data.message);
-                setUser(null);
-            } else {
-                console.error('Logout failed', data.message);
-            }
-        } catch(err) {
-            console.error('Logout request failed:', err);
-        }
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        logout();
     }
 
     return (

@@ -119,6 +119,18 @@ const useStore = create((set, get) => ({
 
     setFilterStatus: (status) => set(() => ({ filterStatus: status })),
 
+    // Auth state
+    token: null,
+
+    setToken: (token) => set({ token }),
+
+    logout: () => set({
+      user: null,
+      token: null,
+      notifications: [],
+      unreadCount: 0
+    }),
+
     // Notification state
     notifications: [],
     unreadCount: 0,

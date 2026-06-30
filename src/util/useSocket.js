@@ -6,13 +6,13 @@ const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_U
 
 export default function useSocket() {
   const socketRef = useRef(null);
-  const { user, addNotification, setUnreadCount } = useStore();
+  const { addNotification, token } = useStore();
 
   useEffect(() => {
-    if (!user) return;
+    if (!token) return;
 
     const socket = io(SOCKET_URL, {
-      withCredentials: true
+      auth: { token }
     });
     socketRef.current = socket;
 
@@ -25,7 +25,7 @@ export default function useSocket() {
     return () => {
       socket.disconnect();
     };
-  }, [user?.id]);
+  }, [token]);
 
   return socketRef.current;
 }

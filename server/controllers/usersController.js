@@ -73,16 +73,17 @@ const loginController = async (req, res, next) => {
 
     const token = jwt.sign({ id: findUser.id, email: findUser.email }, SECRET_KEY, { expiresIn: '1h' })
 
-    res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 3600000, sameSite: 'None' });
-
-    res.status(200).json({ message: 'Login successful', user: { id: findUser.id, email: findUser.email } });
+    res.status(200).json({ message: 'Login successful', token, user: { id: findUser.id, email: findUser.email, username: findUser.username } });
   } catch (error) {
     next(error)
   }
 }
 
 const checkAuth = async (req, res) => {
-  const token = req.cookies.token;
+  const authHeader = req.headers.authorization;
+  const token = authHeader?.startsWith('Bearer ')
+    ? authHeader.split(' ')[1]
+    : req.cookies.token;
 
   if (!token) {
     return res.json({ isAuthenticated: false });
@@ -104,9 +105,6 @@ const checkAuth = async (req, res) => {
 }
 
 const logout = (req, res) => {
-  // Clear the JWT cookie
-  res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'None' });
- 
   res.status(200).json({ message: 'Logged out successfully' });
 }
 
