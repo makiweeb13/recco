@@ -12,8 +12,7 @@ export default function useSocket() {
     if (!user) return;
 
     const socket = io(SOCKET_URL, {
-      withCredentials: true,
-      transports: ['websocket', 'polling']
+      withCredentials: true
     });
     socketRef.current = socket;
 
