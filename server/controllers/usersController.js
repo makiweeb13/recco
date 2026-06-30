@@ -73,7 +73,7 @@ const loginController = async (req, res, next) => {
 
     const token = jwt.sign({ id: findUser.id, email: findUser.email }, SECRET_KEY, { expiresIn: '1h' })
 
-    res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', maxAge: 3600000, sameSite: 'Strict' }); // Cookie lasts 1 hour
+    res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 3600000, sameSite: 'None' });
 
     res.status(200).json({ message: 'Login successful', user: { id: findUser.id, email: findUser.email } });
   } catch (error) {
@@ -105,7 +105,7 @@ const checkAuth = async (req, res) => {
 
 const logout = (req, res) => {
   // Clear the JWT cookie
-  res.clearCookie('token', { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict' });
+  res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'None' });
  
   res.status(200).json({ message: 'Logged out successfully' });
 }
