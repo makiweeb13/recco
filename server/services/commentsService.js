@@ -172,6 +172,16 @@ const createCommentLike = async ( user_id, comment_id, mode ) => {
               }
             })
           }
+          const comment = await prisma.comments.findUnique({ where: { id: comment_id }, select: { user_id: true, post_id: true } });
+          if (comment && comment.user_id !== user_id) {
+            const actor = await prisma.users.findUnique({ where: { id: user_id }, select: { username: true } });
+            const notif = await notificationsService.createNotification(
+              comment.user_id, user_id, 'comment_dislike',
+              `${actor.username} disliked your comment`,
+              comment.post_id, comment_id
+            );
+            try { getIO().to(`user:${comment.user_id}`).emit('notification', notif); } catch {}
+          }
         }
     }
 }
